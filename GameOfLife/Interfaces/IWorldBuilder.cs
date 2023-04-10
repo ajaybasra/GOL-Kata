@@ -1,6 +1,6 @@
 namespace GameOfLife.Interfaces;
 
-public class IWorldBuilder
+public interface IWorldBuilder
 {
-    
+    string Build(IWorld world);
 }

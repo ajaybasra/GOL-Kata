@@ -1,6 +1,6 @@
 namespace GameOfLife.IO;
 
-public class Validator
+public static class Validator
 {
     
 }
