@@ -13,11 +13,16 @@ public class Cell
 
     public string GetCellStateAsString()
     {
-        throw new NotImplementedException();
+        return _cellState.ToString();
     }
 
     public void SetCellState(CellState cellState)
     {
         _cellState = cellState;
+    }
+
+    public string GetCellStateAsSymbol()
+    {
+        return _cellState is CellState.Dead ? "." : "X";
     }
 }
