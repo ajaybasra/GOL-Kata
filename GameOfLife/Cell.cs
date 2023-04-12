@@ -23,6 +23,6 @@ public class Cell
 
     public string GetCellStateAsSymbol()
     {
-        return _cellState is CellState.Dead ? "." : "X";
+        return _cellState is CellState.Dead ? Constants.Constants.Dead : Constants.Constants.Alive;
     }
 }

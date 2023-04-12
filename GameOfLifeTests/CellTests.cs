@@ -14,6 +14,13 @@ public class CellTests
     }
     
     [Fact]
+    public void CheckCellExists_AfterCreatingIt() 
+    {
+        Assert.NotNull(_deadCell);
+        Assert.NotNull(_aliveCell);
+    }
+    
+    [Fact]
     public void GetCellStateAsString_ShouldReturnCorrectString_WhenCellDead()
     {
         var expected = "Dead";

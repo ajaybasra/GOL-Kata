@@ -1,8 +1,10 @@
+using System.Collections;
+
 namespace GameOfLife.Interfaces;
 
 public interface IWorld
 {
     void RandomizeWorld();
     List<int> GetWorldDimensions();
-    object GetArrayOfCells();
+    Cell[,] GetArrayOfCells();
 }
