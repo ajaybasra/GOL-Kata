@@ -8,7 +8,7 @@ public class TwoDimensionalWorld : IWorld
 {
     private int _rows;
     private int _cols;
-    private readonly Cell[,] _arrayOfCells;
+    private Cell[,] _arrayOfCells;
     private readonly IRandomNumberGenerator _randomNumberGenerator;
 
     public TwoDimensionalWorld(int rows, int cols, IRandomNumberGenerator randomNumberGenerator)
@@ -31,7 +31,7 @@ public class TwoDimensionalWorld : IWorld
         }
     }
 
-    public Cell[,] GetRandomizedWorld()
+    public void RandomizeWorld()
     {
         var randomizedWorld = new Cell[_rows, _cols];
         
@@ -42,8 +42,7 @@ public class TwoDimensionalWorld : IWorld
                 randomizedWorld[i, j] = _randomNumberGenerator.GetRandomNumber() == 0 ? new Cell(CellState.Dead) : new Cell(CellState.Alive);
             }
         }
-
-        return randomizedWorld;
+        _arrayOfCells = randomizedWorld;
     }
     public List<int> GetWorldDimensions()
     {

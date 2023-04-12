@@ -4,7 +4,7 @@ namespace GameOfLife.Interfaces;
 
 public interface IWorld
 {
-    Cell[,] GetRandomizedWorld();
+    void RandomizeWorld();
     List<int> GetWorldDimensions();
     Cell[,] GetArrayOfCells();
 }
