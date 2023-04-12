@@ -1,5 +1,7 @@
 using GameOfLife;
 using GameOfLife.Enums;
+using GameOfLife.Interfaces;
+using Moq;
 
 namespace GameOfLifeTests;
 
@@ -8,10 +10,12 @@ public class TwoDimensionalWorldTests
     private readonly TwoDimensionalWorld _twoDimensionalWorld;
     private readonly int _rows = 5;
     private readonly int _cols = 5;
+    private readonly Mock<IRandomNumberGenerator> _mockRNG;
     
     public TwoDimensionalWorldTests()
     {
-        _twoDimensionalWorld = new TwoDimensionalWorld(_rows, _cols);
+        _mockRNG = new Mock<IRandomNumberGenerator>();
+        _twoDimensionalWorld = new TwoDimensionalWorld(_rows, _cols, _mockRNG.Object);
     }
 
     [Fact]
@@ -47,9 +51,25 @@ public class TwoDimensionalWorldTests
     }
 
     [Fact]
-    public void RandomizeWorld_AllArrayValuesShouldBeAMixtureOfDeadAndAlive_WhenCalled()
+    public void GetRandomizedWorld_AllArrayValuesShouldBeAMixtureOfDeadAndAlive_WhenCalled()
     {
+        _mockRNG.SetupSequence(x => x.GetRandomNumber())
+            .Returns(0)
+            .Returns(1)
+            .Returns(0)
+            .Returns(1)
+            .Returns(1);
+        var expectedRow = new Cell[] { new(CellState.Dead), new(CellState.Alive), new(CellState.Dead), new(CellState.Alive), new(CellState.Alive) };
+
+        var arrayOfCells = _twoDimensionalWorld.GetRandomizedWorld();
+        var actualRow = Enumerable.Range(0, arrayOfCells.GetLength(1))
+            .Select(x => arrayOfCells[0, x])
+            .ToArray();
         
+        for (var i = 0; i < expectedRow.Length; i++)
+        {
+            Assert.Equal(expectedRow[i].GetCellStateAsString(), actualRow[i].GetCellStateAsString());
+        }
     }
     
     [Fact]
