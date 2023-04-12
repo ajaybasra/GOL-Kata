@@ -9,11 +9,13 @@ public class TwoDimensionalWorld : IWorld
     private int _rows;
     private int _cols;
     private readonly Cell[,] _arrayOfCells;
+    private IRandomNumberGenerator _randomNumberGenerator;
 
     public TwoDimensionalWorld(int rows, int cols)
     {
         _rows = rows;
         _cols = cols;
+        _randomNumberGenerator = new RNG();
         _arrayOfCells = new Cell[rows, cols];
         CreateDeadWorld(_rows, _cols);
     }
