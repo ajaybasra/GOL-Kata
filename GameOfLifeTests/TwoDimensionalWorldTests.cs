@@ -43,8 +43,7 @@ public class TwoDimensionalWorldTests
         var actualRow = Enumerable.Range(0, arrayOfCells.GetLength(1))
             .Select(x => arrayOfCells[0, x])
             .ToArray();
-        // Assert.True(expectedRow.ToString().SequenceEqual(actualRow.ToString()));
-        // Assert.Equal(expectedRow.ToString(), actualRow.ToString());
+        
         for (var i = 0; i < expectedRow.Length; i++)
         {
             Assert.Equal(expectedRow[i].GetCellStateAsString(), actualRow[i].GetCellStateAsString());
@@ -52,7 +51,7 @@ public class TwoDimensionalWorldTests
     }
 
     [Fact]
-    public void GetRandomizedWorld_AllArrayValuesShouldBeAMixtureOfDeadAndAlive_WhenCalled()
+    public void RandomizeWorld_AllArrayValuesShouldBeAMixtureOfDeadAndAlive_WhenCalled()
     {
         _mockRNG.SetupSequence(x => x.GetRandomNumber())
             .Returns(0)

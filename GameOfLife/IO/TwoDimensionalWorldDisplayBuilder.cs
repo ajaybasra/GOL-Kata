@@ -3,7 +3,7 @@ using GameOfLife.Interfaces;
 
 namespace GameOfLife.IO;
 
-public class WorldBuilder : IWorldBuilder
+public class TwoDimensionalWorldDisplayBuilder : IWorldDisplayBuilder
 {
     public string Build(IWorld world)
     {
