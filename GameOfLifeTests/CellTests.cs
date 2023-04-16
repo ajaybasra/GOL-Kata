@@ -81,6 +81,18 @@ public class CellTests
         
         Assert.Equal(expected, actual);
     }
+
+    [Fact]
+    public void IsCellAlive_ReturnsTrue_WhenGivenAliveCell()
+    {
+        Assert.True(_aliveCell.isCellAlive());
+    }
     
+    [Fact]
+    public void IsCellAlive_ReturnsFalse_WhenGivenAliveCell()
+    {
+        Assert.False(_deadCell.isCellAlive());
+    }
+
 
 }

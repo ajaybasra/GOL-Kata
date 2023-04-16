@@ -7,18 +7,19 @@ public class Game
     private IReader _reader;
     private IWriter _writer;
     private IWorld _world;
-    private WorldProcessor _worldProcessor;
+    private TwoDimensionalWorldProcessor _twoDimensionalWorldProcessor;
 
-    public Game(IReader reader, IWriter writer, IWorld world, WorldProcessor worldProcessor)
+    public Game(IReader reader, IWriter writer, IWorld world, TwoDimensionalWorldProcessor twoDimensionalWorldProcessor)
     {
         _reader = reader;
         _writer = writer;
         _world = world;
-        _worldProcessor = worldProcessor;
+        _twoDimensionalWorldProcessor = twoDimensionalWorldProcessor;
     }
 
     public void Initialize()
     {
+        
         throw new NotImplementedException();
     }
 

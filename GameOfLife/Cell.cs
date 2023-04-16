@@ -16,6 +16,10 @@ public class Cell
         return _cellState.ToString();
     }
 
+    public CellState GetCellState()
+    {
+        return _cellState;
+    }
     public void SetCellState(CellState cellState)
     {
         _cellState = cellState;
@@ -24,5 +28,10 @@ public class Cell
     public string GetCellStateAsSymbol()
     {
         return _cellState is CellState.Dead ? Constants.Constants.Dead : Constants.Constants.Alive;
+    }
+
+    public bool isCellAlive()
+    {
+        return _cellState is CellState.Alive;
     }
 }

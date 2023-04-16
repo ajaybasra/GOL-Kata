@@ -40,7 +40,7 @@ public class TwoDimensionalWorldTests
         var expectedRow = new Cell[] { new(CellState.Dead), new(CellState.Dead), new(CellState.Dead), new(CellState.Dead), new(CellState.Dead) };
 
         var arrayOfCells = _twoDimensionalWorld.GetArrayOfCells();
-        var actualRow = Enumerable.Range(0, arrayOfCells.GetLength(1))
+        var actualRow = Enumerable.Range(0, arrayOfCells.GetLength(0))
             .Select(x => arrayOfCells[0, x])
             .ToArray();
         
@@ -63,7 +63,7 @@ public class TwoDimensionalWorldTests
 
         _twoDimensionalWorld.RandomizeWorld();
         var arrayOfCells = _twoDimensionalWorld.GetArrayOfCells();
-        var actualRow = Enumerable.Range(0, arrayOfCells.GetLength(1))
+        var actualRow = Enumerable.Range(0, arrayOfCells.GetLength(0))
             .Select(x => arrayOfCells[0, x])
             .ToArray();
         
