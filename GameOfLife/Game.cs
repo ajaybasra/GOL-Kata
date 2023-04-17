@@ -29,7 +29,7 @@ public class Game
         _world.RandomizeWorld();
         var worldToDisplay = _writer.BuildWorld(_world);
         _writer.WriteLine(worldToDisplay);
-        bool worldIsNotStable = true;
+        var worldIsNotStable = true;
         
         while (worldIsNotStable)
         {

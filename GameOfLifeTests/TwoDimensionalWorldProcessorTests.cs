@@ -72,5 +72,32 @@ public class TwoDimensionalWorldProcessorTests
     public void GetNextGeneration_CellStaysAlive_WhenItHasThreeNeighbours()
     {
         Assert.True(_twoDimensionalWorldProcessorUsingMockTwoDimensionalWorld.GetNextGeneration()[3,4].isCellAlive());
+        Assert.False(_twoDimensionalWorldProcessorUsingMockTwoDimensionalWorld.IsWorldStable());
+    }
+
+    [Fact]
+    public void IsWorldStable_ReturnsFalse_WhenNextGenerationIsDifferent()
+    {
+        Assert.False(_twoDimensionalWorldProcessorUsingMockTwoDimensionalWorld.IsWorldStable());
+
+    }
+    
+    [Fact]
+    public void IsWorldStable_ReturnsTrue_WhenNextGenerationIsSame()
+    {
+        var twoDimensionalWord = new Cell[,]
+        {
+            { new (CellState.Dead), new (CellState.Dead), new (CellState.Dead), new (CellState.Dead), new (CellState.Dead) },
+            { new (CellState.Dead), new (CellState.Dead), new (CellState.Dead), new (CellState.Dead), new (CellState.Dead) },
+            { new (CellState.Dead), new (CellState.Dead), new (CellState.Dead), new (CellState.Dead), new (CellState.Dead) },
+            { new (CellState.Dead), new (CellState.Dead), new (CellState.Dead), new (CellState.Dead), new (CellState.Dead) },
+            { new (CellState.Dead), new (CellState.Dead), new (CellState.Dead), new (CellState.Dead), new (CellState.Dead) },
+        };
+        _mockedTwoDimensionalWorld.Setup(x => x.GetWorldDimensions()).Returns(new List<int>() {5, 5});
+        _mockedTwoDimensionalWorld.Setup(x => x.GetArrayOfCells()).Returns(twoDimensionalWord);
+        var twoDimensionalWorldProcessorUsingMockTwoDimensionalWorld = new TwoDimensionalWorldProcessor(_mockedTwoDimensionalWorld.Object);
+        
+        Assert.True(twoDimensionalWorldProcessorUsingMockTwoDimensionalWorld.IsWorldStable());
+
     }
 }
