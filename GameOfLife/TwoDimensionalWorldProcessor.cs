@@ -3,24 +3,22 @@ using GameOfLife.Interfaces;
 
 namespace GameOfLife;
 
-public class TwoDimensionalWorldProcessor
+public class TwoDimensionalWorldProcessor : IWorldProcessor
 {
-    private IWorld _world;
     private readonly int _rows;
     private readonly int _cols;
     private readonly Cell[,] _oldGeneration;
-    private readonly Cell[,] _newGeneration;
 
     public TwoDimensionalWorldProcessor(IWorld world)
     {
-        _world = world;
         _rows = world.GetWorldDimensions()[0];
         _cols = world.GetWorldDimensions()[1];
-        _oldGeneration = _world.GetArrayOfCells();
-        _newGeneration = new Cell[_rows, _cols];
+        _oldGeneration = world.GetArrayOfCells();
     }
     public Cell[,] GetNextGeneration()
     {
+        var newGeneration = new Cell[_rows, _cols];
+        
         for (var row = 0; row < _rows; row++)
         {
             for (var col = 0; col < _cols; col++)
@@ -30,23 +28,23 @@ public class TwoDimensionalWorldProcessor
    
                 if (currentCell.isCellAlive() && numberOfAliveNeighbours < 2)
                 {
-                    _newGeneration[row,col] = new Cell(CellState.Dead);
+                    newGeneration[row,col] = new Cell(CellState.Dead);
                 }
                 else if (currentCell.isCellAlive() && numberOfAliveNeighbours > 3)
                 {
-                    _newGeneration[row, col] = new Cell(CellState.Dead);
+                    newGeneration[row, col] = new Cell(CellState.Dead);
                 }
                 else if (!currentCell.isCellAlive() && numberOfAliveNeighbours == 3)
                 {
-                    _newGeneration[row,col] = new Cell(CellState.Alive);
+                    newGeneration[row,col] = new Cell(CellState.Alive);
                 }
                 else
                 {
-                    _newGeneration[row, col] = new Cell(currentCell.GetCellState());
+                    newGeneration[row, col] = new Cell(currentCell.GetCellState());
                 }
             }
         }
-        return _newGeneration;
+        return newGeneration;
     }
 
     public int Mod(int x, int m) // works for negative numbers too unlike % operator
@@ -84,7 +82,6 @@ public class TwoDimensionalWorldProcessor
                 }
             }
         }
-
         return true;
     }
 }

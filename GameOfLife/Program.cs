@@ -9,4 +9,5 @@ var twoDimensionalWorldDisplayBuilder = new TwoDimensionalWorldDisplayBuilder();
 var consoleWriter = new ConsoleWriter(twoDimensionalWorldDisplayBuilder);
 var twoDimensionalWorld = new TwoDimensionalWorld(5, 5, new RNG());
 var game = new Game(consoleReader, consoleWriter, twoDimensionalWorld);
+
 game.Initialize();

@@ -5,17 +5,14 @@ namespace GameOfLife;
 
 public class Game
 {
-    private IReader _reader;
-    private IWriter _writer;
-    private IWorld _world;
-    // private TwoDimensionalWorldProcessor _twoDimensionalWorldProcessor;
-
+    private readonly IReader _reader;
+    private readonly IWriter _writer;
+    private readonly IWorld _world;
     public Game(IReader reader, IWriter writer, IWorld world)
     {
         _reader = reader;
         _writer = writer;
         _world = world;
-        // _twoDimensionalWorldProcessor = twoDimensionalWorldProcessor;
     }
 
     public void Initialize()
@@ -33,7 +30,8 @@ public class Game
         
         while (worldIsNotStable)
         {
-            TwoDimensionalWorldProcessor twoDimensionalWorldProcessor = new TwoDimensionalWorldProcessor(_world);
+            Thread.Sleep(500);
+            var twoDimensionalWorldProcessor = new TwoDimensionalWorldProcessor(_world);
             _world.UpdateArrayOfCells(twoDimensionalWorldProcessor.GetNextGeneration());
             worldToDisplay = _writer.BuildWorld(_world);
             _writer.WriteLine(worldToDisplay);
