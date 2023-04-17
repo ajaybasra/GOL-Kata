@@ -54,4 +54,14 @@ public class TwoDimensionalWorld : IWorld
     {
         return _arrayOfCells;
     }
+    public void UpdateArrayOfCells(Cell[,] newArrayOfCells)
+    {
+        for (var i = 0; i < _rows ; i++)
+        {
+            for (var j = 0; j < _cols; j++)
+            {
+                _arrayOfCells[i, j] = newArrayOfCells[i, j];
+            }
+        }
+    }
 }
