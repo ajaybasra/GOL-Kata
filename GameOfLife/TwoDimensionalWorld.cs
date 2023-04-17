@@ -16,7 +16,7 @@ public class TwoDimensionalWorld : IWorld
         _rows = rows;
         _cols = cols;
         _randomNumberGenerator = randomNumberGenerator;
-        _arrayOfCells = new Cell[rows, cols];
+        _arrayOfCells = new Cell[_rows, _cols];
         CreateDeadWorld(_rows, _cols);
     }
 
