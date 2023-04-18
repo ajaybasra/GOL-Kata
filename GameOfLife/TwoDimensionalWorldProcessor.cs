@@ -5,26 +5,29 @@ namespace GameOfLife;
 
 public class TwoDimensionalWorldProcessor : IWorldProcessor
 {
-    private readonly int _rows;
-    private readonly int _cols;
-    private readonly Cell[,] _oldGeneration;
-
-    public TwoDimensionalWorldProcessor(IWorld world)
+    // private readonly int _rows;
+    // private readonly int _cols;
+    // private readonly Cell[,] _oldGeneration;
+    //
+    // public TwoDimensionalWorldProcessor(IWorld world)
+    // {
+    //     _rows = world.GetWorldDimensions()[0];
+    //     _cols = world.GetWorldDimensions()[1];
+    //     _oldGeneration = (Cell[,])world.GetArrayOfCells();
+    // }
+    public Object GetNextGeneration(IWorld world)
     {
-        _rows = world.GetWorldDimensions()[0];
-        _cols = world.GetWorldDimensions()[1];
-        _oldGeneration = world.GetArrayOfCells();
-    }
-    public Cell[,] GetNextGeneration()
-    {
-        var newGeneration = new Cell[_rows, _cols];
+        var rows = world.GetWorldDimensions()[0];
+        var cols = world.GetWorldDimensions()[1];
+        var oldGeneration = (Cell[,])world.GetArrayOfCells();
+        var newGeneration = new Cell[rows, cols];
         
-        for (var row = 0; row < _rows; row++)
+        for (var row = 0; row < rows; row++)
         {
-            for (var col = 0; col < _cols; col++)
+            for (var col = 0; col < cols; col++)
             {
-                var currentCell = _oldGeneration[row, col];
-                var numberOfAliveNeighbours = GetNumberOfAliveNeighbours(row, col);
+                var currentCell = oldGeneration[row, col];
+                var numberOfAliveNeighbours = GetNumberOfAliveNeighbours(row, col, oldGeneration, rows, cols);
    
                 if (currentCell.isCellAlive() && numberOfAliveNeighbours < 2)
                 {
@@ -53,7 +56,7 @@ public class TwoDimensionalWorldProcessor : IWorldProcessor
         return r<0 ? r+m : r;
     }
 
-    private int GetNumberOfAliveNeighbours(int currentCellRow, int currentCellCol)
+    private int GetNumberOfAliveNeighbours(int currentCellRow, int currentCellCol, Cell[,] oldGeneration, int rows, int cols)
     {
         var aliveNeighbours = 0;
         for (var i= -1; i <= 1; i++)
@@ -61,27 +64,32 @@ public class TwoDimensionalWorldProcessor : IWorldProcessor
             for (var j= -1; j <= 1; j++)
             {
                 if (i == 0 && j == 0) continue;
-                var neighbourRow = Mod((currentCellRow + i), _rows);
-                var neighbourCol = Mod((currentCellCol + j), _cols);
-                aliveNeighbours += _oldGeneration[neighbourRow, neighbourCol].isCellAlive() ? 1 : 0;
+                var neighbourRow = Mod((currentCellRow + i), rows);
+                var neighbourCol = Mod((currentCellCol + j), cols);
+                aliveNeighbours += oldGeneration[neighbourRow, neighbourCol].isCellAlive() ? 1 : 0;
 
             }
         }
         return aliveNeighbours;
     }
 
-    public bool IsWorldStable()
+    public bool IsWorldStable(Object oldGeneration, Object newGeneration, List<int> worldDimensions)
     {
-        for (var row = 0; row < _rows; row++)
+        var oldGenerationArray = (Cell[,])oldGeneration;
+        var newGenerationArray = (Cell[,])newGeneration;
+        var rows = worldDimensions[0];
+        var cols = worldDimensions[1];
+        
+        for (var row = 0; row < rows; row++)
         {
-            for (var col = 0; col < _cols; col++)
+            for (var col = 0; col < cols; col++)
             {
-                if (_oldGeneration[row, col].GetCellState() != GetNextGeneration()[row, col].GetCellState())
+                if (oldGenerationArray[row, col].GetCellState() != newGenerationArray[row, col].GetCellState())
                 {
                     return false;
                 }
             }
         }
-        return true;
+        return oldGenerationArray == newGenerationArray;
     }
 }

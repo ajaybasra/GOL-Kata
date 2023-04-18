@@ -4,7 +4,7 @@ using GameOfLife.Interfaces;
 
 namespace GameOfLife;
 
-public class ThreeDimensionalWorld
+public class ThreeDimensionalWorld : IWorld
 {
     private readonly int _aisles;
     private readonly int _rows;
@@ -58,23 +58,25 @@ public class ThreeDimensionalWorld
         return worldDimensions;
     }
 
-    public Cell[,,] GetArrayOfCells()
+    public Object GetArrayOfCells()
     {
         return _arrayOfCells;
     }
     
-    public void UpdateArrayOfCells(Cell[,,] newArrayOfCells)
+    public void UpdateArrayOfCells(Object newArrayOfCells)
     {
+        var newThreeDimensionalArrayOfCells = (Cell[,,]) newArrayOfCells;
         for (var i = 0; i < _aisles ; i++)
         {
             for (var j = 0; j < _rows; j++)
             {
                 for (var k = 0; k < _cols; k++)
                 {
-                    _arrayOfCells[i, j, k] = newArrayOfCells[i, j, k];
+                    _arrayOfCells[i, j, k] = newThreeDimensionalArrayOfCells[i, j, k];
                 }
                     
             }
         }
     }
+
 }

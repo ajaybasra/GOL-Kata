@@ -10,13 +10,14 @@ public class TwoDimensionalWorldProcessorTests
     private readonly TwoDimensionalWorld _twoDimensionalWorld;
     private readonly Mock<IWorld> _mockedTwoDimensionalWorld;
     private readonly TwoDimensionalWorldProcessor _twoDimensionalWorldProcessor;
-    private readonly TwoDimensionalWorldProcessor _twoDimensionalWorldProcessorUsingMockTwoDimensionalWorld;
-    
+    private readonly List<int> _worldDimensions;
+
     public TwoDimensionalWorldProcessorTests()
     {
         _twoDimensionalWorld = new TwoDimensionalWorld(5, 5, new RNG());
         _mockedTwoDimensionalWorld = new Mock<IWorld>();
-        _twoDimensionalWorldProcessor = new TwoDimensionalWorldProcessor(_twoDimensionalWorld);
+        _twoDimensionalWorldProcessor = new TwoDimensionalWorldProcessor();
+        _worldDimensions = new List<int> { 5, 5 };
         var twoDimensionalWord = new Cell[,]
         {
             { new (CellState.Alive), new (CellState.Alive), new (CellState.Dead), new (CellState.Dead), new (CellState.Alive) },
@@ -27,8 +28,6 @@ public class TwoDimensionalWorldProcessorTests
         };
         _mockedTwoDimensionalWorld.Setup(x => x.GetWorldDimensions()).Returns(new List<int>() {5, 5});
         _mockedTwoDimensionalWorld.Setup(x => x.GetArrayOfCells()).Returns(twoDimensionalWord);
-        _twoDimensionalWorldProcessorUsingMockTwoDimensionalWorld = new TwoDimensionalWorldProcessor(_mockedTwoDimensionalWorld.Object);
-        
     }
 
     [Theory]
@@ -52,33 +51,40 @@ public class TwoDimensionalWorldProcessorTests
     public void GetNextGeneration_Returns2D5x5CellArray_WhenPassedIn5x5World()
     {
         var expected = 25;
-        Assert.Equal(expected, _twoDimensionalWorldProcessor.GetNextGeneration().Length);
+        var nextGeneration = (Cell[,])_twoDimensionalWorldProcessor.GetNextGeneration(_twoDimensionalWorld);
+        
+        Assert.Equal(expected, nextGeneration.Length);
         
     }
     
     [Fact]
     public void GetNextGeneration_CellBecomesAlive_WhenItHasThreeAliveNeighbours()
     {
-        Assert.True(_twoDimensionalWorldProcessorUsingMockTwoDimensionalWorld.GetNextGeneration()[4,4].isCellAlive());
+        var nextGeneration = (Cell[,])_twoDimensionalWorldProcessor.GetNextGeneration(_mockedTwoDimensionalWorld.Object);
+        
+        Assert.True(nextGeneration[4,4].isCellAlive());
     }
     
     [Fact]
     public void GetNextGeneration_CellBecomesDead_WhenItHasMoreThanThreeNeighbours()
     {
-        Assert.False(_twoDimensionalWorldProcessorUsingMockTwoDimensionalWorld.GetNextGeneration()[0,0].isCellAlive());
+        var nextGeneration = (Cell[,])_twoDimensionalWorldProcessor.GetNextGeneration(_mockedTwoDimensionalWorld.Object);
+        
+        Assert.False(nextGeneration[0,0].isCellAlive());
     }
     
     [Fact]
     public void GetNextGeneration_CellStaysAlive_WhenItHasThreeNeighbours()
     {
-        Assert.True(_twoDimensionalWorldProcessorUsingMockTwoDimensionalWorld.GetNextGeneration()[3,4].isCellAlive());
-        Assert.False(_twoDimensionalWorldProcessorUsingMockTwoDimensionalWorld.IsWorldStable());
+        var nextGeneration = (Cell[,])_twoDimensionalWorldProcessor.GetNextGeneration(_mockedTwoDimensionalWorld.Object);
+        
+        Assert.True(nextGeneration[3,4].isCellAlive());
     }
 
     [Fact]
     public void IsWorldStable_ReturnsFalse_WhenNextGenerationIsDifferent()
     {
-        Assert.False(_twoDimensionalWorldProcessorUsingMockTwoDimensionalWorld.IsWorldStable());
+        Assert.False(_twoDimensionalWorldProcessor.IsWorldStable(_twoDimensionalWorld.GetArrayOfCells(), _mockedTwoDimensionalWorld.Object.GetArrayOfCells(), _worldDimensions));
 
     }
     
@@ -95,9 +101,8 @@ public class TwoDimensionalWorldProcessorTests
         };
         _mockedTwoDimensionalWorld.Setup(x => x.GetWorldDimensions()).Returns(new List<int>() {5, 5});
         _mockedTwoDimensionalWorld.Setup(x => x.GetArrayOfCells()).Returns(twoDimensionalWord);
-        var twoDimensionalWorldProcessorUsingMockTwoDimensionalWorld = new TwoDimensionalWorldProcessor(_mockedTwoDimensionalWorld.Object);
         
-        Assert.True(twoDimensionalWorldProcessorUsingMockTwoDimensionalWorld.IsWorldStable());
-
+        Assert.True(_twoDimensionalWorldProcessor.IsWorldStable(_mockedTwoDimensionalWorld.Object.GetArrayOfCells(), _mockedTwoDimensionalWorld.Object.GetArrayOfCells(), _worldDimensions));
+    
     }
 }

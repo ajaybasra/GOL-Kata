@@ -30,7 +30,7 @@ public class ThreeDimensionalWorldTests
     {
         var expected = 75;
         
-        var actual = _threeDimensionalWorld.GetArrayOfCells();
+        var actual = (Cell[,,])_threeDimensionalWorld.GetArrayOfCells();
         
         Assert.Equal(expected, actual.Length);
     }
@@ -38,7 +38,7 @@ public class ThreeDimensionalWorldTests
     [Fact]
     public void CreateDeadWorld_AllArrayValuesShouldBeDead_WhenConstructorCalled()
     {
-        var arrayOfCells = _threeDimensionalWorld.GetArrayOfCells();
+        var arrayOfCells = (Cell[,,])_threeDimensionalWorld.GetArrayOfCells();
     
         for (var i = 0; i < _aisles ; i++)
         {
@@ -66,7 +66,7 @@ public class ThreeDimensionalWorldTests
         var actualBooleans = new List<bool>{};
     
         _threeDimensionalWorld.RandomizeWorld();
-        var arrayOfCells = _threeDimensionalWorld.GetArrayOfCells();
+        var arrayOfCells = (Cell[,,])_threeDimensionalWorld.GetArrayOfCells();
 
         for (var i = 0; i < 1 ; i++) // 1st 2d array
         {

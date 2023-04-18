@@ -50,17 +50,18 @@ public class TwoDimensionalWorld : IWorld
         return worldDimensions;
     }
 
-    public Cell[,] GetArrayOfCells()
+    public Object GetArrayOfCells()
     {
         return _arrayOfCells;
     }
-    public void UpdateArrayOfCells(Cell[,] newArrayOfCells)
+    public void UpdateArrayOfCells(Object newArrayOfCells)
     {
+        var newTwoDimensionalArrayOfCells = (Cell[,]) newArrayOfCells;
         for (var i = 0; i < _rows ; i++)
         {
             for (var j = 0; j < _cols; j++)
             {
-                _arrayOfCells[i, j] = newArrayOfCells[i, j];
+                _arrayOfCells[i, j] = newTwoDimensionalArrayOfCells[i, j];
             }
         }
     }

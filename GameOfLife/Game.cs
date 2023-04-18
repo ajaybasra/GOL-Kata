@@ -8,11 +8,13 @@ public class Game
     private readonly IReader _reader;
     private readonly IWriter _writer;
     private readonly IWorld _world;
-    public Game(IReader reader, IWriter writer, IWorld world)
+    private readonly IWorldProcessor _worldProcessor;
+    public Game(IReader reader, IWriter writer, IWorld world, IWorldProcessor worldProcessor)
     {
         _reader = reader;
         _writer = writer;
         _world = world;
+        _worldProcessor = worldProcessor;
     }
 
     public void Initialize()
@@ -31,11 +33,12 @@ public class Game
         while (worldIsNotStable)
         {
             Thread.Sleep(500);
-            var twoDimensionalWorldProcessor = new TwoDimensionalWorldProcessor(_world);
-            _world.UpdateArrayOfCells(twoDimensionalWorldProcessor.GetNextGeneration());
+            var oldGeneration = _world.GetArrayOfCells();
+            var newGeneration = _worldProcessor.GetNextGeneration(_world);
+            _world.UpdateArrayOfCells(newGeneration);
             worldToDisplay = _writer.BuildWorld(_world);
             _writer.WriteLine(worldToDisplay);
-            if (twoDimensionalWorldProcessor.IsWorldStable())
+            if (_worldProcessor.IsWorldStable(oldGeneration, newGeneration, _world.GetWorldDimensions()))
             {
                 worldIsNotStable = false;
             }
