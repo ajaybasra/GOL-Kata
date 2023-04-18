@@ -5,16 +5,6 @@ namespace GameOfLife;
 
 public class TwoDimensionalWorldProcessor : IWorldProcessor
 {
-    // private readonly int _rows;
-    // private readonly int _cols;
-    // private readonly Cell[,] _oldGeneration;
-    //
-    // public TwoDimensionalWorldProcessor(IWorld world)
-    // {
-    //     _rows = world.GetWorldDimensions()[0];
-    //     _cols = world.GetWorldDimensions()[1];
-    //     _oldGeneration = (Cell[,])world.GetArrayOfCells();
-    // }
     public Object GetNextGeneration(IWorld world)
     {
         var rows = world.GetWorldDimensions()[0];
@@ -90,6 +80,7 @@ public class TwoDimensionalWorldProcessor : IWorldProcessor
                 }
             }
         }
-        return oldGenerationArray == newGenerationArray;
+
+        return true;
     }
 }

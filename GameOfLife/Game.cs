@@ -35,13 +35,14 @@ public class Game
             Thread.Sleep(500);
             var oldGeneration = _world.GetArrayOfCells();
             var newGeneration = _worldProcessor.GetNextGeneration(_world);
-            _world.UpdateArrayOfCells(newGeneration);
-            worldToDisplay = _writer.BuildWorld(_world);
-            _writer.WriteLine(worldToDisplay);
             if (_worldProcessor.IsWorldStable(oldGeneration, newGeneration, _world.GetWorldDimensions()))
             {
                 worldIsNotStable = false;
             }
+            _world.UpdateArrayOfCells(newGeneration);
+            worldToDisplay = _writer.BuildWorld(_world);
+            _writer.WriteLine(worldToDisplay);
+
         }
 
     }
