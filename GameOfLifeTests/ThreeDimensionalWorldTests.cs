@@ -10,7 +10,7 @@ public class ThreeDimensionalWorldTests
     private readonly ThreeDimensionalWorld _threeDimensionalWorld;
     private readonly int _rows = 5;
     private readonly int _cols = 5;
-    private readonly int _aisles = 3;
+    private readonly int _aisles = 2;
     private readonly Mock<IRandomNumberGenerator> _mockRNG;
 
     public ThreeDimensionalWorldTests()
@@ -28,7 +28,7 @@ public class ThreeDimensionalWorldTests
     [Fact]
     public void ThreeDimensionalWorld_Initializes3DArray_WhenCalled()
     {
-        var expected = 75;
+        var expected = 50;
         
         var actual = (Cell[,,])_threeDimensionalWorld.GetArrayOfCells();
         
@@ -85,10 +85,46 @@ public class ThreeDimensionalWorldTests
     [Fact]
     public void GetWorldDimensions_ReturnsCorrectDimensions_WhenCalled()
     {
-        var expected = new List<int> {3, 5, 5};
+        var expected = new List<int> {2, 5, 5};
         
         var actual = _threeDimensionalWorld.GetWorldDimensions();
         
         Assert.Equal(expected, actual);
+    }
+    
+    [Fact]
+    public void UpdateArrayOfCells_Updates3DArray_WhenCalled()
+    {
+        var newThreeDimensionalWorld = new Cell[,,]
+        {
+            {
+                { new (CellState.Alive), new (CellState.Alive), new (CellState.Dead), new (CellState.Dead), new (CellState.Alive) },
+                { new (CellState.Alive), new (CellState.Alive), new (CellState.Alive), new (CellState.Dead), new (CellState.Dead) },
+                { new (CellState.Alive), new (CellState.Dead), new (CellState.Alive), new (CellState.Alive), new (CellState.Dead) },
+                { new (CellState.Alive), new (CellState.Alive), new (CellState.Alive), new (CellState.Alive), new (CellState.Dead) },
+                { new (CellState.Dead), new (CellState.Alive), new (CellState.Dead), new (CellState.Dead), new (CellState.Alive) }
+            },
+            {
+                { new (CellState.Alive), new (CellState.Alive), new (CellState.Alive), new (CellState.Dead), new (CellState.Alive) },
+                { new (CellState.Alive), new (CellState.Alive), new (CellState.Alive), new (CellState.Dead), new (CellState.Dead) },
+                { new (CellState.Alive), new (CellState.Alive), new (CellState.Alive), new (CellState.Alive), new (CellState.Dead) },
+                { new (CellState.Alive), new (CellState.Alive), new (CellState.Alive), new (CellState.Alive), new (CellState.Dead) },
+                { new (CellState.Alive), new (CellState.Alive), new (CellState.Dead), new (CellState.Dead), new (CellState.Alive) }
+            }
+        };
+        
+        _threeDimensionalWorld.UpdateArrayOfCells(newThreeDimensionalWorld);
+        var updatedArrayOfCells = (Cell[,,])_threeDimensionalWorld.GetArrayOfCells();
+
+        for (var aisle = 0; aisle < _aisles; aisle++)
+        {
+            for (var row = 0; row < _rows; row++)
+            {
+                for (var col = 0; col < _cols; col++)
+                {
+                    Assert.Equal(newThreeDimensionalWorld[aisle, row, col], updatedArrayOfCells[aisle, row, col]);
+                }
+            }
+        }
     }
 }

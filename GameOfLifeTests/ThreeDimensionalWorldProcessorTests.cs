@@ -35,10 +35,6 @@ public class ThreeDimensionalWorldProcessorTests
                 { new (CellState.Alive), new (CellState.Alive), new (CellState.Dead), new (CellState.Dead), new (CellState.Alive) }
             }
         };
-        // int[, ,] arr3d3 = new int[2, 2, 3]{
-        //     { { 1, 2, 3}, {4, 5, 6} },
-        //     { { 7, 8, 9}, {10, 11, 12} }
-        // };
         _mockedThreeDimensionalWorld.Setup(x => x.GetWorldDimensions()).Returns(new List<int>() {2, 5, 5});
         _mockedThreeDimensionalWorld.Setup(x => x.GetArrayOfCells()).Returns(threeDimensionalWorld);
     }

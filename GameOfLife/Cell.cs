@@ -11,6 +11,8 @@ public class Cell
         _cellState = cellState;
     }
 
+    public static object Alive { get; set; }
+
     public string GetCellStateAsString()
     {
         return _cellState.ToString();

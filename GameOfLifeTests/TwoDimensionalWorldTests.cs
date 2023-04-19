@@ -82,4 +82,28 @@ public class TwoDimensionalWorldTests
         
         Assert.Equal(expected, actual);
     }
+    
+    [Fact]
+    public void UpdateArrayOfCells_Updates2DArray_WhenCalled()
+    {
+        var newTwoDimensionalWorld = new Cell[,]
+        {
+            { new (CellState.Alive), new (CellState.Alive), new (CellState.Dead), new (CellState.Dead), new (CellState.Alive) },
+            { new (CellState.Alive), new (CellState.Alive), new (CellState.Alive), new (CellState.Dead), new (CellState.Dead) },
+            { new (CellState.Dead), new (CellState.Alive), new (CellState.Dead), new (CellState.Alive), new (CellState.Dead) },
+            { new (CellState.Dead), new (CellState.Dead), new (CellState.Alive), new (CellState.Alive), new (CellState.Dead) },
+            { new (CellState.Dead), new (CellState.Alive), new (CellState.Dead), new (CellState.Dead), new (CellState.Alive) }
+        };
+        
+        _twoDimensionalWorld.UpdateArrayOfCells(newTwoDimensionalWorld);
+        var updatedArrayOfCells = (Cell[,])_twoDimensionalWorld.GetArrayOfCells();
+
+        for (var row = 0; row < _rows; row++)
+        {
+            for (var col = 0; col < _cols; col++)
+            {
+                Assert.Equal(newTwoDimensionalWorld[row, col], updatedArrayOfCells[row, col]);
+            }
+        }
+    }
 }
