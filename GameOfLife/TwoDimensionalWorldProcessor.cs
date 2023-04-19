@@ -5,14 +5,14 @@ namespace GameOfLife;
 
 public class TwoDimensionalWorldProcessor : IWorldProcessor
 {
-    public Object GetNextGeneration(IWorld world)
+    public Object GetNextGeneration(IWorld world) // fix magic numbers
     {
         var rows = world.GetWorldDimensions()[0];
         var cols = world.GetWorldDimensions()[1];
         var oldGeneration = (Cell[,])world.GetArrayOfCells();
         var newGeneration = new Cell[rows, cols];
         
-        for (var row = 0; row < rows; row++)
+        for (var row = 0; row < rows; row++) //can also computer # of neighbours in a more optimized fashion
         {
             for (var col = 0; col < cols; col++)
             {
@@ -49,7 +49,7 @@ public class TwoDimensionalWorldProcessor : IWorldProcessor
     private int GetNumberOfAliveNeighbours(int currentCellRow, int currentCellCol, Cell[,] oldGeneration, int rows, int cols)
     {
         var aliveNeighbours = 0;
-        for (var i= -1; i <= 1; i++)
+        for (var i= -1; i <= 1; i++) // other approach
         {
             for (var j= -1; j <= 1; j++)
             {

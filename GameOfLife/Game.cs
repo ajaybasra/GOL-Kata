@@ -30,14 +30,14 @@ public class Game
         _writer.WriteLine(worldToDisplay);
         var worldIsNotStable = true;
         
-        while (worldIsNotStable)
+        while (true)
         {
             Thread.Sleep(500);
             var oldGeneration = _world.GetArrayOfCells();
             var newGeneration = _worldProcessor.GetNextGeneration(_world);
             if (_worldProcessor.IsWorldStable(oldGeneration, newGeneration, _world.GetWorldDimensions()))
             {
-                worldIsNotStable = false;
+                break;
             }
             _world.UpdateArrayOfCells(newGeneration);
             worldToDisplay = _writer.BuildWorld(_world);

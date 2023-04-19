@@ -63,7 +63,7 @@ public class ThreeDimensionalWorld : IWorld
         return _arrayOfCells;
     }
     
-    public void UpdateArrayOfCells(Object newArrayOfCells)
+    public void UpdateArrayOfCells(Object newArrayOfCells) // there are other approaches, such as cloning objects or pointing to same reference
     {
         var newThreeDimensionalArrayOfCells = (Cell[,,]) newArrayOfCells;
         for (var i = 0; i < _aisles ; i++)

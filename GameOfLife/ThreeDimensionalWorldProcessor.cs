@@ -1,3 +1,4 @@
+using GameOfLife.Enums;
 using GameOfLife.Interfaces;
 
 namespace GameOfLife;
@@ -20,10 +21,24 @@ public class ThreeDimensionalWorldProcessor : IWorldProcessor
                 {
                     var currentCell = oldGeneration[aisle, row, col];
                     var numberOfAliveNeighbours = GetNumberOfAliveNeighbours(aisle, row, col, oldGeneration, aisles, rows, cols);
+                    
+                    if (currentCell.isCellAlive() && numberOfAliveNeighbours < 13)
+                    {
+                        newGeneration[aisle, row, col] = new Cell(CellState.Dead);
+                    }
+                    else if (!currentCell.isCellAlive() && numberOfAliveNeighbours is > 13 and < 20 )
+                    {
+                        newGeneration[aisle, row, col] = new Cell(CellState.Alive);
+                    }
+                    else
+                    {
+                        newGeneration[aisle, row, col] = new Cell(currentCell.GetCellState());
+                    }
                 }
             }
         }
-        throw new NotImplementedException();
+
+        return newGeneration;
     }
 
     private int Mod(int x, int m) // works for negative numbers too unlike % operator
