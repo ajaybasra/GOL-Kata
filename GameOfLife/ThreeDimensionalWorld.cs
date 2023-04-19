@@ -20,7 +20,8 @@ public class ThreeDimensionalWorld : IWorld
         _randomNumberGenerator = randomNumberGenerator;
         _arrayOfCells = new Cell[_aisles, _rows, _cols];
         CreateDeadWorld(_aisles, _rows, _cols);
-    }
+    } 
+    
     private void CreateDeadWorld(int aisles, int rows, int cols)
     {
         for (var i = 0; i < aisles ; i++)
