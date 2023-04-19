@@ -23,9 +23,52 @@ public class ThreeDimensionalWorldDisplayBuilderTests
     [Fact]
     public void Build_ReturnsCorrectString_ForInitialDeadWorld()
     {
-        var expected = ".....\n.....\n.....\n.....\n.....\n.....\n.....\n.....\n.....\n.....\n";
+        var expected = "World number 1:\n.....\n.....\n.....\n.....\n.....\n_____\nWorld number 2:\n.....\n.....\n.....\n.....\n.....\n_____\n";
 
         var actual = _threeDimensionalWorldDisplayBuilder.Build(_threeDimensionalWorld);
+
+        Assert.Equal(expected, actual);
+    }
+    
+    [Fact]
+    public void Build_ReturnsCorrectString_ForRandomizedWorld()
+    {
+        _mockRNG.SetupSequence(x => x.GetRandomNumber())
+            .Returns(0)
+            .Returns(1)
+            .Returns(0)
+            .Returns(1)
+            .Returns(1)
+            .Returns(0)
+            .Returns(0)
+            .Returns(0)
+            .Returns(0)
+            .Returns(1)
+            .Returns(0)
+            .Returns(0)
+            .Returns(0)
+            .Returns(0)
+            .Returns(0)
+            .Returns(1)
+            .Returns(1)
+            .Returns(1)
+            .Returns(1)
+            .Returns(1)
+            .Returns(0)
+            .Returns(0)
+            .Returns(0)
+            .Returns(0)
+            .Returns(0)
+            .Returns(1)
+            .Returns(1)
+            .Returns(1)
+            .Returns(0)
+            .Returns(1);
+    
+        var expected = "World number 1:\n.X.XX\n....X\n.....\nXXXXX\n.....\n_____\nWorld number 2:\nXXX.X\n.....\n.....\n.....\n.....\n_____\n";
+
+        _threeDimensionalWorldWithMockedRNG.RandomizeWorld();
+        var actual = _threeDimensionalWorldDisplayBuilder.Build(_threeDimensionalWorldWithMockedRNG);
 
         Assert.Equal(expected, actual);
     }
