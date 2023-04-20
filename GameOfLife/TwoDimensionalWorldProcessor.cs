@@ -21,7 +21,7 @@ public class TwoDimensionalWorldProcessor : IWorldProcessor
     }
     public void GetNextGeneration() // fix magic numbers
     {
-        _oldGeneration = _twoDimensionalWorld._arrayOfCells;
+        _oldGeneration = _twoDimensionalWorld.ArrayOfCells;
         _newGeneration = new Cell[_rows, _cols];
         
         for (var row = 0; row < _rows; row++) //can also computer # of neighbours in a more optimized fashion
@@ -96,7 +96,7 @@ public class TwoDimensionalWorldProcessor : IWorldProcessor
 
     private void UpdateArrayOfCells()
     {
-        _twoDimensionalWorld._arrayOfCells = _newGeneration;
+        _twoDimensionalWorld.ArrayOfCells = _newGeneration;
     }
     public void Tick()
     {

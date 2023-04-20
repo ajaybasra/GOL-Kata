@@ -1,93 +1,114 @@
-// using GameOfLife.Enums;
-// using GameOfLife.Interfaces;
-//
-// namespace GameOfLife;
-//
-// public class ThreeDimensionalWorldProcessor : IWorldProcessor
-// {
-//     public object GetNextGeneration(IWorld world)
-//     {
-//         var aisles = world.GetWorldDimensions()[0];
-//         var rows = world.GetWorldDimensions()[1];
-//         var cols = world.GetWorldDimensions()[2];
-//         var oldGeneration = (Cell[,,])world.GetArrayOfCells();
-//         var newGeneration = new Cell[aisles, rows, cols];
-//
-//         for (var aisle = 0; aisle < aisles; aisle++) 
-//         {
-//             for (var row = 0; row < rows; row++)
-//             {
-//                 for (var col = 0; col < cols; col++)
-//                 {
-//                     var currentCell = oldGeneration[aisle, row, col];
-//                     var numberOfAliveNeighbours = GetNumberOfAliveNeighbours(aisle, row, col, oldGeneration, aisles, rows, cols);
-//                     
-//                     if (currentCell.isCellAlive() && numberOfAliveNeighbours < 13)
-//                     {
-//                         newGeneration[aisle, row, col] = new Cell(CellState.Dead);
-//                     }
-//                     else if (!currentCell.isCellAlive() && numberOfAliveNeighbours is > 13 and < 20 )
-//                     {
-//                         newGeneration[aisle, row, col] = new Cell(CellState.Alive);
-//                     }
-//                     else
-//                     {
-//                         newGeneration[aisle, row, col] = new Cell(currentCell.GetCellState());
-//                     }
-//                 }
-//             }
-//         }
-//
-//         return newGeneration;
-//     }
-//
-//     private int Mod(int x, int m) // works for negative numbers too unlike % operator
-//     {
-//         var r = x % m;
-//         return r<0 ? r+m : r;
-//     }
-//     
-//     private int GetNumberOfAliveNeighbours(int currentCellAisle, int currentCellRow, int currentCellCol, Cell[,,] oldGeneration, int aisles, int rows, int cols)
-//     {
-//         var aliveNeighbours = 0;
-//         for (var i= -1; i <= 1; i++)
-//         {
-//             for (var j= -1; j <= 1; j++)
-//             {
-//                 for (var k = -1; k < 1; k++)
-//                 {
-//                     if (i == 0 && j == 0 && k == 0) continue;
-//                     var neighbourAisle = Mod( (currentCellAisle + i), aisles);
-//                     var neighbourRow = Mod((currentCellRow + j), rows);
-//                     var neighbourCol = Mod((currentCellCol + k), cols);
-//                     aliveNeighbours += oldGeneration[neighbourAisle, neighbourRow, neighbourCol].isCellAlive() ? 1 : 0;
-//                 }
-//             }
-//         }
-//         return aliveNeighbours;
-//     }
-//     public bool IsWorldStable(object oldGeneration, object newGeneration, List<int> worldDimensions)
-//     {
-//         var oldGenerationArray = (Cell[,,])oldGeneration;
-//         var newGenerationArray = (Cell[,,])newGeneration;
-//         var aisles = worldDimensions[0];
-//         var rows = worldDimensions[1];
-//         var cols = worldDimensions[2];
-//         
-//         for (var i = 0; i < aisles ; i++)
-//         {
-//             for (var j = 0; j < rows; j++)
-//             {
-//                 for (var k = 0; k < cols; k++)
-//                 {
-//                     if (oldGenerationArray[i,j,k].GetCellState() != newGenerationArray[i,j,k].GetCellState())
-//                     {
-//                         return false;
-//                     }
-//                 }
-//                     
-//             }
-//         }
-//         return true;
-//     }
-// }
+using GameOfLife.Enums;
+using GameOfLife.Interfaces;
+using GameOfLife.IO;
+
+namespace GameOfLife;
+
+public class ThreeDimensionalWorldProcessor : IWorldProcessor
+{
+    private readonly ThreeDimensionalWorld _threeDimensionalWorld;
+    private readonly ThreeDimensionalWorldDisplayBuilder _threeDimensionalWorldDisplayBuilder;
+    private Cell[,,] _oldGeneration;
+    private Cell[,,] _newGeneration;
+    private readonly int _aisles;
+    private readonly int _rows;
+    private readonly int _cols;
+
+    public ThreeDimensionalWorldProcessor(ThreeDimensionalWorld threeDimensionalWorld, ThreeDimensionalWorldDisplayBuilder threeDimensionalWorldDisplayBuilder)
+    {
+        _threeDimensionalWorld = threeDimensionalWorld;
+        _threeDimensionalWorldDisplayBuilder = threeDimensionalWorldDisplayBuilder;
+        _aisles = _threeDimensionalWorld.GetWorldDimensions()[0];
+        _rows = _threeDimensionalWorld.GetWorldDimensions()[1];
+        _cols = _threeDimensionalWorld.GetWorldDimensions()[2];
+    }
+    public void GetNextGeneration()
+    {
+        _oldGeneration = _threeDimensionalWorld.ArrayOfCells;
+        _newGeneration = new Cell[_aisles, _rows, _cols];
+
+        for (var aisle = 0; aisle < _aisles; aisle++) 
+        {
+            for (var row = 0; row < _rows; row++)
+            {
+                for (var col = 0; col < _cols; col++)
+                {
+                    var currentCell = _oldGeneration[aisle, row, col];
+                    var numberOfAliveNeighbours = GetNumberOfAliveNeighbours(aisle, row, col);
+                    
+                    if (currentCell.isCellAlive() && numberOfAliveNeighbours < 13)
+                    {
+                        _newGeneration[aisle, row, col] = new Cell(CellState.Dead);
+                    }
+                    else if (!currentCell.isCellAlive() && numberOfAliveNeighbours is > 13 and < 20 )
+                    {
+                        _newGeneration[aisle, row, col] = new Cell(CellState.Alive);
+                    }
+                    else
+                    {
+                        _newGeneration[aisle, row, col] = new Cell(currentCell.GetCellState());
+                    }
+                }
+            }
+        }
+    }
+
+    private int Mod(int x, int m) // works for negative numbers too unlike % operator
+    {
+        var r = x % m;
+        return r<0 ? r+m : r;
+    }
+    
+    private int GetNumberOfAliveNeighbours(int currentCellAisle, int currentCellRow, int currentCellCol)
+    {
+        var aliveNeighbours = 0;
+        for (var i= -1; i <= 1; i++)
+        {
+            for (var j= -1; j <= 1; j++)
+            {
+                for (var k = -1; k < 1; k++)
+                {
+                    if (i == 0 && j == 0 && k == 0) continue;
+                    var neighbourAisle = Mod( (currentCellAisle + i), _aisles);
+                    var neighbourRow = Mod((currentCellRow + j), _rows);
+                    var neighbourCol = Mod((currentCellCol + k), _cols);
+                    aliveNeighbours += _oldGeneration[neighbourAisle, neighbourRow, neighbourCol].isCellAlive() ? 1 : 0;
+                }
+            }
+        }
+        return aliveNeighbours;
+    }
+    public bool IsWorldStable()
+    {
+        for (var i = 0; i < _aisles ; i++)
+        {
+            for (var j = 0; j <_rows; j++)
+            {
+                for (var k = 0; k < _cols; k++)
+                {
+                    if (_oldGeneration[i,j,k].GetCellState() != _newGeneration[i,j,k].GetCellState())
+                    {
+                        return false;
+                    }
+                }
+                    
+            }
+        }
+        return true;
+    }
+    
+    public string BuildWorld()
+    {
+        return _threeDimensionalWorldDisplayBuilder.Build(_threeDimensionalWorld, _aisles, _rows, _cols);
+    }
+
+    private void UpdateArrayOfCells()
+    {
+        _threeDimensionalWorld.ArrayOfCells = _newGeneration;
+    }
+    public void Tick()
+    {
+        GetNextGeneration();
+        UpdateArrayOfCells();
+    }
+}

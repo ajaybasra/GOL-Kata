@@ -14,7 +14,7 @@ public class TwoDimensionalWorldDisplayBuilder
         {
             for (var j = 0; j < cols; j++)
             {
-                var twoDimensionalWorldArray = world._arrayOfCells;
+                var twoDimensionalWorldArray = world.ArrayOfCells;
                 stringBuilder.Append(twoDimensionalWorldArray[i,j].GetCellStateAsSymbol());
             }
             stringBuilder.Append('\n');
