@@ -6,6 +6,6 @@ public interface IWriter
     void WriteLine(string output);
 
     void Clear();
-    string BuildWorld(IWorld world);
+    // string BuildWorld(IWorld world);
 
 }

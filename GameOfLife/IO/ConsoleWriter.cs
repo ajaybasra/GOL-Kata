@@ -4,11 +4,6 @@ namespace GameOfLife.IO;
 
 public class ConsoleWriter : IWriter
 {
-    private readonly IWorldDisplayBuilder _worldDisplayBuilder;
-    public ConsoleWriter(IWorldDisplayBuilder worldDisplayBuilder)
-    {
-        _worldDisplayBuilder = worldDisplayBuilder;
-    }
     public void Write(string output)
     {
         Console.Write(output);
@@ -24,8 +19,8 @@ public class ConsoleWriter : IWriter
         Console.Clear();
     }
 
-    public string BuildWorld(IWorld world)
-    {
-        return _worldDisplayBuilder.Build(world);
-    }
+    // public string BuildWorld(IWorld world)
+    // {
+    //     return _worldDisplayBuilder.Build(world);
+    // }
 }

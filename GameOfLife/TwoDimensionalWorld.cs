@@ -8,7 +8,8 @@ public class TwoDimensionalWorld : IWorld
 {
     private readonly int _rows;
     private readonly int _cols;
-    private Cell[,] _arrayOfCells;
+    public Cell[,] _arrayOfCells { get; set; }
+    
     private readonly IRandomNumberGenerator _randomNumberGenerator;
 
     public TwoDimensionalWorld(int rows, int cols, IRandomNumberGenerator randomNumberGenerator)
@@ -50,19 +51,4 @@ public class TwoDimensionalWorld : IWorld
         return worldDimensions;
     }
 
-    public Object GetArrayOfCells()
-    {
-        return _arrayOfCells;
-    }
-    public void UpdateArrayOfCells(Object newArrayOfCells)
-    {
-        var newTwoDimensionalArrayOfCells = (Cell[,]) newArrayOfCells;
-        for (var i = 0; i < _rows ; i++)
-        {
-            for (var j = 0; j < _cols; j++)
-            {
-                _arrayOfCells[i, j] = newTwoDimensionalArrayOfCells[i, j];
-            }
-        }
-    }
 }

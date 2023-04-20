@@ -26,24 +26,23 @@ public class Game
     private void Play()
     {
         _world.RandomizeWorld();
-        var worldToDisplay = _writer.BuildWorld(_world);
-        _writer.WriteLine(worldToDisplay);
-        var worldIsNotStable = true;
+        DisplayWorld();
         
         while (true)
         {
             Thread.Sleep(500);
-            var oldGeneration = _world.GetArrayOfCells();
-            var newGeneration = _worldProcessor.GetNextGeneration(_world);
-            if (_worldProcessor.IsWorldStable(oldGeneration, newGeneration, _world.GetWorldDimensions()))
+            _worldProcessor.Tick();
+            if (_worldProcessor.IsWorldStable())
             {
                 break;
             }
-            _world.UpdateArrayOfCells(newGeneration);
-            worldToDisplay = _writer.BuildWorld(_world);
-            _writer.WriteLine(worldToDisplay);
-
+            DisplayWorld();
         }
+    }
 
+    private void DisplayWorld()
+    {        
+        var worldToDisplay = _worldProcessor.BuildWorld();
+        _writer.WriteLine(worldToDisplay);
     }
 }

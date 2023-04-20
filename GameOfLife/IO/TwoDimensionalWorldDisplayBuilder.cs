@@ -1,21 +1,20 @@
+using System.Data;
 using System.Text;
 using GameOfLife.Interfaces;
 
 namespace GameOfLife.IO;
 
-public class TwoDimensionalWorldDisplayBuilder : IWorldDisplayBuilder
+public class TwoDimensionalWorldDisplayBuilder
 {
-    public string Build(IWorld world)
+    public string Build(TwoDimensionalWorld world, int rows, int cols)
     {
         var stringBuilder = new StringBuilder();
-        var rows = world.GetWorldDimensions()[0];
-        var cols = world.GetWorldDimensions()[1];
         
         for (var i = 0; i < rows; i++)
         {
             for (var j = 0; j < cols; j++)
             {
-                var twoDimensionalWorldArray = (Cell[,])world.GetArrayOfCells();
+                var twoDimensionalWorldArray = world._arrayOfCells;
                 stringBuilder.Append(twoDimensionalWorldArray[i,j].GetCellStateAsSymbol());
             }
             stringBuilder.Append('\n');
