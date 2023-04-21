@@ -19,7 +19,7 @@ public class TwoDimensionalWorldProcessor : IWorldProcessor
         _rows = _twoDimensionalWorld.GetWorldDimensions()[0];
         _cols = _twoDimensionalWorld.GetWorldDimensions()[1];
     }
-    public void GetNextGeneration() // fix magic numbers
+    private void GetNextGeneration() // fix magic numbers
     {
         _oldGeneration = _twoDimensionalWorld.ArrayOfCells;
         _newGeneration = new Cell[_rows, _cols];
@@ -51,7 +51,7 @@ public class TwoDimensionalWorldProcessor : IWorldProcessor
         }
     }
 
-    public int Mod(int x, int m) // works for negative numbers too unlike % operator
+    private int Mod(int x, int m) // works for negative numbers too unlike % operator
     {
         var r = x % m;
         return r<0 ? r+m : r;
