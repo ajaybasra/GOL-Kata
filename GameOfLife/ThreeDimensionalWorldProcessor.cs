@@ -99,7 +99,7 @@ public class ThreeDimensionalWorldProcessor : IWorldProcessor
     
     public string BuildWorld()
     {
-        return _threeDimensionalWorldDisplayBuilder.Build(_threeDimensionalWorld, _aisles, _rows, _cols);
+        return _threeDimensionalWorldDisplayBuilder.Build(_threeDimensionalWorld);
     }
     
     public void Tick()

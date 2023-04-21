@@ -6,9 +6,11 @@ namespace GameOfLife.IO;
 
 public class TwoDimensionalWorldDisplayBuilder
 {
-    public string Build(TwoDimensionalWorld world, int rows, int cols)
+    public string Build(TwoDimensionalWorld world)
     {
         var stringBuilder = new StringBuilder();
+        var rows = world.GetWorldDimensions()[0];
+        var cols = world.GetWorldDimensions()[1];
         
         for (var i = 0; i < rows; i++)
         {

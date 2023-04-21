@@ -90,7 +90,7 @@ public class TwoDimensionalWorldProcessor : IWorldProcessor
     }
     public string BuildWorld()
     {
-        return _twoDimensionalWorldDisplayBuilder.Build(_twoDimensionalWorld, _rows, _cols);
+        return _twoDimensionalWorldDisplayBuilder.Build(_twoDimensionalWorld);
     }
 
     public void Tick()

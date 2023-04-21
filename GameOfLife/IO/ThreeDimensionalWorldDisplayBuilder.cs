@@ -5,9 +5,12 @@ namespace GameOfLife.IO;
 
 public class ThreeDimensionalWorldDisplayBuilder
 {
-    public string Build(ThreeDimensionalWorld world, int aisles, int rows, int cols)
+    public string Build(ThreeDimensionalWorld world)
     {
         var stringBuilder = new StringBuilder();
+        var aisles = world.GetWorldDimensions()[0];
+        var rows = world.GetWorldDimensions()[1];
+        var cols = world.GetWorldDimensions()[2];
         
         for (var i = 0; i < aisles ; i++)
         {
