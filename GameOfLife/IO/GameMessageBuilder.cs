@@ -4,7 +4,7 @@ public static class GameMessageBuilder
 {
     public static string IntroMessage()
     {
-        return "Welcome to Conway's Game of Life! Press any key to continue.\n";
+        return "Welcome to Conway's Game of Life!";
     }
     
     public static string OutroMessage()

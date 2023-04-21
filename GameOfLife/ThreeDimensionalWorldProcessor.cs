@@ -101,14 +101,10 @@ public class ThreeDimensionalWorldProcessor : IWorldProcessor
     {
         return _threeDimensionalWorldDisplayBuilder.Build(_threeDimensionalWorld, _aisles, _rows, _cols);
     }
-
-    private void UpdateArrayOfCells()
-    {
-        _threeDimensionalWorld.ArrayOfCells = _newGeneration;
-    }
+    
     public void Tick()
     {
         GetNextGeneration();
-        UpdateArrayOfCells();
+        _threeDimensionalWorld.ArrayOfCells = _newGeneration;
     }
 }

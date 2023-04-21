@@ -60,7 +60,7 @@ public class TwoDimensionalWorldProcessor : IWorldProcessor
     private int GetNumberOfAliveNeighbours(int currentCellRow, int currentCellCol)
     {
         var aliveNeighbours = 0;
-        for (var i= -1; i <= 1; i++) // other approach
+        for (var i= -1; i <= 1; i++)  
         {
             for (var j= -1; j <= 1; j++)
             {
@@ -75,7 +75,6 @@ public class TwoDimensionalWorldProcessor : IWorldProcessor
 
     public bool IsWorldStable()
     {
-
         for (var row = 0; row < _rows; row++)
         {
             for (var col = 0; col < _cols; col++)
@@ -94,13 +93,9 @@ public class TwoDimensionalWorldProcessor : IWorldProcessor
         return _twoDimensionalWorldDisplayBuilder.Build(_twoDimensionalWorld, _rows, _cols);
     }
 
-    private void UpdateArrayOfCells()
-    {
-        _twoDimensionalWorld.ArrayOfCells = _newGeneration;
-    }
     public void Tick()
     {
         GetNextGeneration();
-        UpdateArrayOfCells();
+        _twoDimensionalWorld.ArrayOfCells = _newGeneration;
     }
 }

@@ -18,9 +18,4 @@ public class ConsoleWriter : IWriter
     {
         Console.Clear();
     }
-
-    // public string BuildWorld(IWorld world)
-    // {
-    //     return _worldDisplayBuilder.Build(world);
-    // }
 }
