@@ -13,5 +13,6 @@ var twoDimensionalWorldProcessor = new TwoDimensionalWorldProcessor(twoDimension
 var threeDimensionalWorld = new ThreeDimensionalWorld(25, 5, 25, new RNG());
 var threeDimensionalWorldProcessor = new ThreeDimensionalWorldProcessor(threeDimensionalWorld, threeDimensionalWorldDisplayBuilder);
 var game = new Game(consoleReader, consoleWriter, twoDimensionalWorld, twoDimensionalWorldProcessor);
-
-game.Initialize();
+var b = ArgumentParser.GetWorldDimensions();
+Console.WriteLine(b.Count);
+// game.Initialize();
