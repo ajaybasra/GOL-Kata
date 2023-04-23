@@ -3,22 +3,29 @@ using GameOfLife.IO;
 
 namespace GameOfLife;
 
-public class WorldFactory : IWorldFactory
+public class WorldProcessorFactory : IWorldProcessorFactory
 {
-    public TwoDimensionalWorldProcessor CreateTwoDimensionalWorld(int rows, int cols)
+    public TwoDimensionalWorldProcessor CreateTwoDimensionalWorldProcessor(List<int> worldDimensions)
     {
+        var rows = worldDimensions[0];
+        var cols = worldDimensions[1];
         var rng = new RNG();
         var twoDimensionalWorldDisplayBuilder = new TwoDimensionalWorldDisplayBuilder();
         var twoDimensionalWorld = new TwoDimensionalWorld(rows, cols, rng);
+        twoDimensionalWorld.RandomizeWorld();
         var twoDimensionalWorldProcessor = new TwoDimensionalWorldProcessor(twoDimensionalWorld, twoDimensionalWorldDisplayBuilder);
         return twoDimensionalWorldProcessor;
     }
 
-    public ThreeDimensionalWorldProcessor CreateThreeDimensionalWorld(int aisles, int rows, int cols)
+    public ThreeDimensionalWorldProcessor CreateThreeDimensionalWorldProcessor(List<int> worldDimensions)
     {
+        var aisles = worldDimensions[0];
+        var rows = worldDimensions[1];
+        var cols = worldDimensions[2];
         var rng = new RNG();
         var threeDimensionalWorldDisplayBuilder = new ThreeDimensionalWorldDisplayBuilder();
         var threeDimensionalWorld = new ThreeDimensionalWorld(aisles, rows, cols, rng);
+        threeDimensionalWorld.RandomizeWorld();
         var threeDimensionalWorldProcessor = new ThreeDimensionalWorldProcessor(threeDimensionalWorld, threeDimensionalWorldDisplayBuilder);
         return threeDimensionalWorldProcessor;
     }

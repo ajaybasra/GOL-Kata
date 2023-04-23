@@ -7,25 +7,26 @@ public class Game
 {
     private readonly IReader _reader;
     private readonly IWriter _writer;
-    private readonly IWorld _world;
-    private readonly IWorldProcessor _worldProcessor;
-    public Game(IReader reader, IWriter writer, IWorld world, IWorldProcessor worldProcessor)
+    private readonly IWorldProcessorFactory _worldProcessorFactory;
+    private IWorldProcessor _worldProcessor;
+    public Game(IReader reader, IWriter writer, IWorldProcessorFactory worldProcessorFactory)
     {
         _reader = reader;
         _writer = writer;
-        _world = world;
-        _worldProcessor = worldProcessor;
+        _worldProcessorFactory = worldProcessorFactory;
     }
 
     public void Initialize()
     {
-     _writer.WriteLine(GameMessageBuilder.IntroMessage());
+        _worldProcessor = ArgumentParser.GetChosenGameVersion() == 2
+            ? _worldProcessorFactory.CreateTwoDimensionalWorldProcessor(ArgumentParser.GetWorldDimensions())
+            : _worldProcessorFactory.CreateThreeDimensionalWorldProcessor(ArgumentParser.GetWorldDimensions());
+        _writer.WriteLine(GameMessageBuilder.IntroMessage());
      Play();
     }
 
     private void Play()
     {
-        _world.RandomizeWorld();
         DisplayWorld();
         
         while (true)
