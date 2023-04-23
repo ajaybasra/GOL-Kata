@@ -1,5 +1,5 @@
 using GameOfLife.Enums;
-
+using GameOfLife.Constants;
 namespace GameOfLife;
 
 public class Cell

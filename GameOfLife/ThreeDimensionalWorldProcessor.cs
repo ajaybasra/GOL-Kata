@@ -36,11 +36,11 @@ public class ThreeDimensionalWorldProcessor : IWorldProcessor
                     var currentCell = _oldGeneration[aisle, row, col];
                     var numberOfAliveNeighbours = GetNumberOfAliveNeighbours(aisle, row, col);
                     
-                    if (currentCell.isCellAlive() && numberOfAliveNeighbours < 13)
+                    if (currentCell.isCellAlive() && numberOfAliveNeighbours < Constants.Constants.ThreeDimensionalWorldLowerThreshold)
                     {
                         _newGeneration[aisle, row, col] = new Cell(CellState.Dead);
                     }
-                    else if (!currentCell.isCellAlive() && numberOfAliveNeighbours is > 13 and < 20 )
+                    else if (!currentCell.isCellAlive() && numberOfAliveNeighbours is > Constants.Constants.ThreeDimensionalWorldLowerThreshold and < Constants.Constants.ThreeDimensionalWorldUpperThreshold)
                     {
                         _newGeneration[aisle, row, col] = new Cell(CellState.Alive);
                     }

@@ -31,15 +31,15 @@ public class TwoDimensionalWorldProcessor : IWorldProcessor
                 var currentCell = _oldGeneration[row, col];
                 var numberOfAliveNeighbours = GetNumberOfAliveNeighbours(row, col);
    
-                if (currentCell.isCellAlive() && numberOfAliveNeighbours < 2)
+                if (currentCell.isCellAlive() && numberOfAliveNeighbours < Constants.Constants.TwoDimensionalWorldLowerThreshold)
                 {
                     _newGeneration[row,col] = new Cell(CellState.Dead);
                 }
-                else if (currentCell.isCellAlive() && numberOfAliveNeighbours > 3)
+                else if (currentCell.isCellAlive() && numberOfAliveNeighbours > Constants.Constants.TwoDimensionalWorldUpperThreshold)
                 {
                     _newGeneration[row, col] = new Cell(CellState.Dead);
                 }
-                else if (!currentCell.isCellAlive() && numberOfAliveNeighbours == 3)
+                else if (!currentCell.isCellAlive() && numberOfAliveNeighbours == Constants.Constants.TwoDimensionalWorldUpperThreshold)
                 {
                     _newGeneration[row,col] = new Cell(CellState.Alive);
                 }
