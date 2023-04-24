@@ -2,7 +2,7 @@ namespace GameOfLife;
 
 public static class ArgumentParser
 {
-    private static readonly string[] ProgramArguments = Environment.GetCommandLineArgs();
+    private static readonly string[] ProgramArguments = Environment.GetCommandLineArgs(); // have a field - which has a normal obj method which calls env.getcla...
     
     public static int GetChosenGameVersion()
     {
