@@ -2,7 +2,7 @@ using GameOfLife.Interfaces;
 
 namespace GameOfLife;
 
-public class Command : ICommandLine
+public class CommandLine : ICommandLine
 
 {
     public string[] GetCommandLineArgs()

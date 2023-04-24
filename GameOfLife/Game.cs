@@ -9,18 +9,20 @@ public class Game
     private readonly IWriter _writer;
     private readonly IWorldProcessorFactory _worldProcessorFactory;
     private IWorldProcessor _worldProcessor;
-    public Game(IReader reader, IWriter writer, IWorldProcessorFactory worldProcessorFactory)
+    private readonly ArgumentParser _argumentParser;
+    public Game(IReader reader, IWriter writer, IWorldProcessorFactory worldProcessorFactory, ArgumentParser argumentParser)
     {
         _reader = reader;
         _writer = writer;
         _worldProcessorFactory = worldProcessorFactory;
+        _argumentParser = argumentParser;
     }
 
     public void Initialize()
     {
-        _worldProcessor = ArgumentParser.GetChosenGameVersion() == 2
-            ? _worldProcessorFactory.CreateTwoDimensionalWorldProcessor(ArgumentParser.GetWorldDimensions())
-            : _worldProcessorFactory.CreateThreeDimensionalWorldProcessor(ArgumentParser.GetWorldDimensions());
+        _worldProcessor = _argumentParser.GetChosenGameVersion() == 2
+            ? _worldProcessorFactory.CreateTwoDimensionalWorldProcessor(_argumentParser.GetWorldDimensions())
+            : _worldProcessorFactory.CreateThreeDimensionalWorldProcessor(_argumentParser.GetWorldDimensions());
         _writer.WriteLine(GameMessageBuilder.IntroMessage());
      Play();
     }

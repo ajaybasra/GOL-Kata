@@ -1,6 +1,6 @@
 namespace GameOfLife.Interfaces;
 
-public interface ICommandLineInterface
+public interface ICommandLine
 {
     string[] GetCommandLineArgs();
 }

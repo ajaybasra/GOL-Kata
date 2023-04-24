@@ -1,19 +1,26 @@
+using GameOfLife.Interfaces;
+
 namespace GameOfLife;
 
-public static class ArgumentParser
+public class ArgumentParser
 {
-    private static readonly string[] ProgramArguments = Environment.GetCommandLineArgs(); // have a field - which has a normal obj method which calls env.getcla...
-    
-    public static int GetChosenGameVersion()
+    private readonly string[] _programArguments;
+
+    public ArgumentParser(ICommandLine commandLine)
     {
-        var chosenGameVersion = int.Parse(ProgramArguments[1]);
+        _programArguments = commandLine.GetCommandLineArgs();
+    }
+    
+    public int GetChosenGameVersion()
+    {
+        var chosenGameVersion = int.Parse(_programArguments[1]);
         return chosenGameVersion;
     }
 
-    public static List<int> GetWorldDimensions()
+    public List<int> GetWorldDimensions()
     {
         var worldDimensions = new List<int>{};
-        worldDimensions.AddRange(ProgramArguments.Skip(2).Select(arg => int.Parse(arg)));
+        worldDimensions.AddRange(_programArguments.Skip(2).Select(arg => int.Parse(arg)));
 
         return worldDimensions;
     }
