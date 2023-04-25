@@ -49,21 +49,30 @@ public class Game
 
     private void SetUpGame()
     {
-        if (_argumentParser.GetChosenGameVersion() == 2)
+        try
         {
-            _worldProcessor =
-                _worldProcessorFactory.CreateTwoDimensionalWorldProcessor(_argumentParser.GetWorldDimensions());
+
+            if (_argumentParser.GetChosenGameVersion() == 2)
+            {
+                _worldProcessor =
+                    _worldProcessorFactory.CreateTwoDimensionalWorldProcessor(_argumentParser.GetWorldDimensions());
+            }
+            else if (_argumentParser.GetChosenGameVersion() == 3)
+            {
+                _worldProcessor =
+                    _worldProcessorFactory.CreateThreeDimensionalWorldProcessor(_argumentParser.GetWorldDimensions());
+            }
+            else
+            {
+                _worldProcessor =
+                    _worldProcessorFactory.CreateTwoDimensionalWorldWithoutWraparoundProcessor(
+                        _argumentParser.GetWorldDimensions());
+            }
         }
-        else if (_argumentParser.GetChosenGameVersion() == 3)
+        catch (ArgumentException ae)
         {
-            _worldProcessor =
-                _worldProcessorFactory.CreateThreeDimensionalWorldProcessor(_argumentParser.GetWorldDimensions());
-        }
-        else
-        {
-            _worldProcessor =
-                _worldProcessorFactory.CreateTwoDimensionalWorldWithoutWraparoundProcessor(
-                    _argumentParser.GetWorldDimensions());
+            Console.WriteLine(ae.Message);
+            Environment.Exit(1);
         }
     }
 }

@@ -3,7 +3,6 @@
 using GameOfLife;
 using GameOfLife.IO;
 
-Console.WriteLine("Hello, World!");
 var consoleReader = new ConsoleReader();
 var consoleWriter = new ConsoleWriter();
 var threeDimensionalWorld = new ThreeDimensionalWorld(25, 5, 25, new RNG());
