@@ -20,11 +20,9 @@ public class Game
 
     public void Initialize()
     {
-        _worldProcessor = _argumentParser.GetChosenGameVersion() == 2
-            ? _worldProcessorFactory.CreateTwoDimensionalWorldProcessor(_argumentParser.GetWorldDimensions())
-            : _worldProcessorFactory.CreateThreeDimensionalWorldProcessor(_argumentParser.GetWorldDimensions());
+        SetUpGame();
         _writer.WriteLine(GameMessageBuilder.IntroMessage());
-     Play();
+        Play();
     }
 
     private void Play()
@@ -47,5 +45,25 @@ public class Game
     {        
         var worldToDisplay = _worldProcessor.BuildWorld();
         _writer.WriteLine(worldToDisplay);
+    }
+
+    private void SetUpGame()
+    {
+        if (_argumentParser.GetChosenGameVersion() == 2)
+        {
+            _worldProcessor =
+                _worldProcessorFactory.CreateTwoDimensionalWorldProcessor(_argumentParser.GetWorldDimensions());
+        }
+        else if (_argumentParser.GetChosenGameVersion() == 3)
+        {
+            _worldProcessor =
+                _worldProcessorFactory.CreateThreeDimensionalWorldProcessor(_argumentParser.GetWorldDimensions());
+        }
+        else
+        {
+            _worldProcessor =
+                _worldProcessorFactory.CreateTwoDimensionalWorldWithoutWraparoundProcessor(
+                    _argumentParser.GetWorldDimensions());
+        }
     }
 }

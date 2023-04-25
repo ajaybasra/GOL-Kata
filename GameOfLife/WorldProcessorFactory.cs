@@ -17,6 +17,19 @@ public class WorldProcessorFactory : IWorldProcessorFactory
         return twoDimensionalWorldProcessor;
     }
 
+    public TwoDimensionalWorldWithoutWraparoundProcessor CreateTwoDimensionalWorldWithoutWraparoundProcessor(
+        List<int> worldDimensions)
+    {
+        var rows = worldDimensions[0];
+        var cols = worldDimensions[1];
+        var rng = new RNG();
+        var twoDimensionalWorldDisplayBuilder = new TwoDimensionalWorldDisplayBuilder();
+        var twoDimensionalWorld = new TwoDimensionalWorld(rows, cols, rng);
+        twoDimensionalWorld.RandomizeWorld();
+        var twoDimensionalWorldWithoutWraparoundProcessor = new TwoDimensionalWorldWithoutWraparoundProcessor(twoDimensionalWorld, twoDimensionalWorldDisplayBuilder);
+        return twoDimensionalWorldWithoutWraparoundProcessor;
+    }
+
     public ThreeDimensionalWorldProcessor CreateThreeDimensionalWorldProcessor(List<int> worldDimensions)
     {
         var aisles = worldDimensions[0];
