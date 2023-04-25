@@ -4,7 +4,7 @@ using GameOfLife.IO;
 
 namespace GameOfLife;
 
-public class TwoDimensionalWorldProcessor : IWorldProcessor
+public class TwoDimensionWorldWithoutWraparoundProcessor : IWorldProcessor
 {
     private readonly TwoDimensionalWorld _twoDimensionalWorld;
     private readonly TwoDimensionalWorldDisplayBuilder _twoDimensionalWorldDisplayBuilder;
@@ -12,21 +12,23 @@ public class TwoDimensionalWorldProcessor : IWorldProcessor
     private Cell[,] _newGeneration;
     private readonly int _rows;
     private readonly int _cols;
-    public TwoDimensionalWorldProcessor(TwoDimensionalWorld twoDimensionalWorld, TwoDimensionalWorldDisplayBuilder twoDimensionalWorldDisplayBuilder)
+
+    public TwoDimensionWorldWithoutWraparoundProcessor(TwoDimensionalWorld twoDimensionalWorld, TwoDimensionalWorldDisplayBuilder twoDimensionalWorldDisplayBuilder)
     {
         _twoDimensionalWorld = twoDimensionalWorld;
         _twoDimensionalWorldDisplayBuilder = twoDimensionalWorldDisplayBuilder;
         _rows = _twoDimensionalWorld.GetWorldDimensions()[0];
         _cols = _twoDimensionalWorld.GetWorldDimensions()[1];
     }
-    private void GetNextGeneration() 
+    
+private void GetNextGeneration() 
     {
         _oldGeneration = _twoDimensionalWorld.ArrayOfCells;
         _newGeneration = new Cell[_rows, _cols];
         
-        for (var row = 0; row < _rows; row++) //can also computer # of neighbours in a more optimized fashion
+        for (var row = 1; row < _rows - 1; row++) //can also computer # of neighbours in a more optimized fashion
         {
-            for (var col = 0; col < _cols; col++)
+            for (var col = 1; col < _cols - 1; col++)
             {
                 var currentCell = _oldGeneration[row, col];
                 var numberOfAliveNeighbours = GetNumberOfAliveNeighbours(row, col);
@@ -50,14 +52,7 @@ public class TwoDimensionalWorldProcessor : IWorldProcessor
             }
         }
     }
-
-    private int Mod(int x, int m) // works for negative numbers too unlike % operator
-    {
-        var r = x % m;
-        return r<0 ? r+m : r;
-    }
-
-    private int GetNumberOfAliveNeighbours(int currentCellRow, int currentCellCol)
+private int GetNumberOfAliveNeighbours(int currentCellRow, int currentCellCol)
     {
         var aliveNeighbours = 0;
         for (var i= -1; i <= 1; i++)  
@@ -65,8 +60,8 @@ public class TwoDimensionalWorldProcessor : IWorldProcessor
             for (var j= -1; j <= 1; j++)
             {
                 if (i == 0 && j == 0) continue;
-                var neighbourRow = Mod((currentCellRow + i), _rows);
-                var neighbourCol = Mod((currentCellCol + j), _cols);
+                var neighbourRow = currentCellRow + i;
+                var neighbourCol = currentCellCol + j;
                 aliveNeighbours += _oldGeneration[neighbourRow, neighbourCol].isCellAlive() ? 1 : 0;
             }
         }

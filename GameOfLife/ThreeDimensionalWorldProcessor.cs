@@ -22,7 +22,7 @@ public class ThreeDimensionalWorldProcessor : IWorldProcessor
         _rows = _threeDimensionalWorld.GetWorldDimensions()[1];
         _cols = _threeDimensionalWorld.GetWorldDimensions()[2];
     }
-    public void GetNextGeneration()
+    private void GetNextGeneration()
     {
         _oldGeneration = _threeDimensionalWorld.ArrayOfCells;
         _newGeneration = new Cell[_aisles, _rows, _cols];
