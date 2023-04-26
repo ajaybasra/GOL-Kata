@@ -39,6 +39,8 @@ public class Game
             }
             DisplayWorld();
         }
+        
+        _writer.WriteLine(GameMessageBuilder.OutroMessage());
     }
 
     private void DisplayWorld()
@@ -65,7 +67,7 @@ public class Game
             else
             {
                 _worldProcessor =
-                    _worldProcessorFactory.CreateTwoDimensionalWorldWithoutWraparoundProcessor(
+                    _worldProcessorFactory.CreateTwoDimensionalWorldProcessorWithoutWraparound(
                         _argumentParser.GetWorldDimensions());
             }
         }

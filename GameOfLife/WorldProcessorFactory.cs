@@ -13,12 +13,12 @@ public class WorldProcessorFactory : IWorldProcessorFactory
         var twoDimensionalWorldDisplayBuilder = new TwoDimensionalWorldDisplayBuilder();
         var twoDimensionalWorld = new TwoDimensionalWorld(rows, cols, rng);
         twoDimensionalWorld.RandomizeWorld();
-        var twoDimensionalWorldProcessor = new TwoDimensionalWorldProcessor(twoDimensionalWorld, twoDimensionalWorldDisplayBuilder);
+        var twoDimensionalWorldNeighbourProcessor = new TwoDimensionalWorldNeighbourProcessor();
+        var twoDimensionalWorldProcessor = new TwoDimensionalWorldProcessor(twoDimensionalWorld, twoDimensionalWorldDisplayBuilder, twoDimensionalWorldNeighbourProcessor);
         return twoDimensionalWorldProcessor;
     }
 
-    public TwoDimensionalWorldWithoutWraparoundProcessor CreateTwoDimensionalWorldWithoutWraparoundProcessor(
-        List<int> worldDimensions)
+    public TwoDimensionalWorldProcessor CreateTwoDimensionalWorldProcessorWithoutWraparound(List<int> worldDimensions)
     {
         var rows = worldDimensions[0];
         var cols = worldDimensions[1];
@@ -26,8 +26,9 @@ public class WorldProcessorFactory : IWorldProcessorFactory
         var twoDimensionalWorldDisplayBuilder = new TwoDimensionalWorldDisplayBuilder();
         var twoDimensionalWorld = new TwoDimensionalWorld(rows, cols, rng);
         twoDimensionalWorld.RandomizeWorld();
-        var twoDimensionalWorldWithoutWraparoundProcessor = new TwoDimensionalWorldWithoutWraparoundProcessor(twoDimensionalWorld, twoDimensionalWorldDisplayBuilder);
-        return twoDimensionalWorldWithoutWraparoundProcessor;
+        var twoDimensionalWorldWithoutWraparoundNeighbourProcessor = new TwoDimensionalWorldWithoutWraparoundNeighbourProcessor();
+        var twoDimensionalWorldProcessorWithoutWraparound = new TwoDimensionalWorldProcessor(twoDimensionalWorld, twoDimensionalWorldDisplayBuilder, twoDimensionalWorldWithoutWraparoundNeighbourProcessor);
+        return twoDimensionalWorldProcessorWithoutWraparound;
     }
 
     public ThreeDimensionalWorldProcessor CreateThreeDimensionalWorldProcessor(List<int> worldDimensions)

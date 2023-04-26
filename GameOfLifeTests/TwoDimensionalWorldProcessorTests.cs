@@ -10,12 +10,13 @@ public class TwoDimensionalWorldProcessorTests
 {
     private readonly TwoDimensionalWorld _twoDimensionalWorld;
     private readonly TwoDimensionalWorldProcessor _twoDimensionalWorldProcessor;
-    private readonly TwoDimensionalWorldProcessor _twoDimensionalWorldProcessorUsingMockedWorld;
+    private readonly TwoDimensionalWorldNeighbourProcessor _twoDimensionalWorldNeighbourProcessor;
 
     public TwoDimensionalWorldProcessorTests()
     {
         _twoDimensionalWorld = new TwoDimensionalWorld(5, 5, new RNG());
-        _twoDimensionalWorldProcessor = new TwoDimensionalWorldProcessor(_twoDimensionalWorld, new TwoDimensionalWorldDisplayBuilder());
+        _twoDimensionalWorldNeighbourProcessor = new TwoDimensionalWorldNeighbourProcessor();
+        _twoDimensionalWorldProcessor = new TwoDimensionalWorldProcessor(_twoDimensionalWorld, new TwoDimensionalWorldDisplayBuilder(), _twoDimensionalWorldNeighbourProcessor);
     }
     
     [Fact]

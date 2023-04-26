@@ -8,14 +8,16 @@ public class TwoDimensionalWorldProcessor : IWorldProcessor
 {
     private readonly TwoDimensionalWorld _twoDimensionalWorld;
     private readonly TwoDimensionalWorldDisplayBuilder _twoDimensionalWorldDisplayBuilder;
+    private readonly INeighbourProcessor _neighbourProcessor;
     private Cell[,] _oldGeneration;
     private Cell[,] _newGeneration;
     private readonly int _rows;
     private readonly int _cols;
-    public TwoDimensionalWorldProcessor(TwoDimensionalWorld twoDimensionalWorld, TwoDimensionalWorldDisplayBuilder twoDimensionalWorldDisplayBuilder)
+    public TwoDimensionalWorldProcessor(TwoDimensionalWorld twoDimensionalWorld, TwoDimensionalWorldDisplayBuilder twoDimensionalWorldDisplayBuilder, INeighbourProcessor neighbourProcessor)
     {
         _twoDimensionalWorld = twoDimensionalWorld;
         _twoDimensionalWorldDisplayBuilder = twoDimensionalWorldDisplayBuilder;
+        _neighbourProcessor = neighbourProcessor;
         _rows = _twoDimensionalWorld.GetWorldDimensions()[0];
         _cols = _twoDimensionalWorld.GetWorldDimensions()[1];
     }
@@ -29,7 +31,7 @@ public class TwoDimensionalWorldProcessor : IWorldProcessor
             for (var col = 0; col < _cols; col++)
             {
                 var currentCell = _oldGeneration[row, col];
-                var numberOfAliveNeighbours = GetNumberOfAliveNeighbours(row, col);
+                var numberOfAliveNeighbours = _neighbourProcessor.GetNumberOfAliveNeighbours(row, col, _rows, _cols, _oldGeneration);
    
                 if (currentCell.isCellAlive() && numberOfAliveNeighbours < Constants.Constants.TwoDimensionalWorldLowerThreshold)
                 {
@@ -49,28 +51,6 @@ public class TwoDimensionalWorldProcessor : IWorldProcessor
                 }
             }
         }
-    }
-
-    private int Mod(int x, int m) // works for negative numbers too unlike % operator
-    {
-        var r = x % m;
-        return r<0 ? r+m : r;
-    }
-
-    private int GetNumberOfAliveNeighbours(int currentCellRow, int currentCellCol)
-    {
-        var aliveNeighbours = 0;
-        for (var i= -1; i <= 1; i++)  
-        {
-            for (var j= -1; j <= 1; j++)
-            {
-                if (i == 0 && j == 0) continue;
-                var neighbourRow = Mod((currentCellRow + i), _rows);
-                var neighbourCol = Mod((currentCellCol + j), _cols);
-                aliveNeighbours += _oldGeneration[neighbourRow, neighbourCol].isCellAlive() ? 1 : 0;
-            }
-        }
-        return aliveNeighbours;
     }
 
     public bool IsWorldStable()

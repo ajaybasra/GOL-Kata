@@ -4,6 +4,7 @@ public interface IWorldProcessorFactory
 {
     TwoDimensionalWorldProcessor CreateTwoDimensionalWorldProcessor(List<int> worldDimensions);
 
-    TwoDimensionalWorldWithoutWraparoundProcessor CreateTwoDimensionalWorldWithoutWraparoundProcessor(List<int> worldDimensions);
+    TwoDimensionalWorldProcessor CreateTwoDimensionalWorldProcessorWithoutWraparound(List<int> worldDimensions);
+    
     ThreeDimensionalWorldProcessor CreateThreeDimensionalWorldProcessor(List<int> worldDimensions);
 }
