@@ -92,40 +92,4 @@ public class ThreeDimensionalWorldTests
         Assert.Equal(expected, actual);
     }
     
-    // redundant test; as we got rid of the Update method
-    // [Fact]
-    // public void UpdateArrayOfCells_Updates3DArray_WhenCalled()
-    // {
-    //     var newThreeDimensionalWorld = new Cell[,,]
-    //     {
-    //         {
-    //             { new (CellState.Alive), new (CellState.Alive), new (CellState.Dead), new (CellState.Dead), new (CellState.Alive) },
-    //             { new (CellState.Alive), new (CellState.Alive), new (CellState.Alive), new (CellState.Dead), new (CellState.Dead) },
-    //             { new (CellState.Alive), new (CellState.Dead), new (CellState.Alive), new (CellState.Alive), new (CellState.Dead) },
-    //             { new (CellState.Alive), new (CellState.Alive), new (CellState.Alive), new (CellState.Alive), new (CellState.Dead) },
-    //             { new (CellState.Dead), new (CellState.Alive), new (CellState.Dead), new (CellState.Dead), new (CellState.Alive) }
-    //         },
-    //         {
-    //             { new (CellState.Alive), new (CellState.Alive), new (CellState.Alive), new (CellState.Dead), new (CellState.Alive) },
-    //             { new (CellState.Alive), new (CellState.Alive), new (CellState.Alive), new (CellState.Dead), new (CellState.Dead) },
-    //             { new (CellState.Alive), new (CellState.Alive), new (CellState.Alive), new (CellState.Alive), new (CellState.Dead) },
-    //             { new (CellState.Alive), new (CellState.Alive), new (CellState.Alive), new (CellState.Alive), new (CellState.Dead) },
-    //             { new (CellState.Alive), new (CellState.Alive), new (CellState.Dead), new (CellState.Dead), new (CellState.Alive) }
-    //         }
-    //     };
-    //     
-    //     _threeDimensionalWorld.UpdateArrayOfCells(newThreeDimensionalWorld);
-    //     var updatedArrayOfCells = (Cell[,,])_threeDimensionalWorld.GetArrayOfCells();
-    //
-    //     for (var aisle = 0; aisle < _aisles; aisle++)
-    //     {
-    //         for (var row = 0; row < _rows; row++)
-    //         {
-    //             for (var col = 0; col < _cols; col++)
-    //             {
-    //                 Assert.Equal(newThreeDimensionalWorld[aisle, row, col], updatedArrayOfCells[aisle, row, col]);
-    //             }
-    //         }
-    //     }
-    // }
 }
