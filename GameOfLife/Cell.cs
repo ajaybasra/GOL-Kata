@@ -10,7 +10,7 @@ public class Cell
     {
         _cellState = cellState;
     }
-    public string GetCellStateAsString() // delete
+    public string GetCellStateAsString()  
     {
         return _cellState.ToString();
     }

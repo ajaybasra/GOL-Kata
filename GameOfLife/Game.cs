@@ -5,14 +5,12 @@ namespace GameOfLife;
 
 public class Game
 {
-    private readonly IReader _reader; // get rid off
     private readonly IWriter _writer;
     private readonly IWorldProcessorFactory _worldProcessorFactory;
     private IWorldProcessor _worldProcessor;
     private readonly ArgumentParser _argumentParser;
-    public Game(IReader reader, IWriter writer, IWorldProcessorFactory worldProcessorFactory, ArgumentParser argumentParser)
+    public Game(IWriter writer, IWorldProcessorFactory worldProcessorFactory, ArgumentParser argumentParser)
     {
-        _reader = reader;
         _writer = writer;
         _worldProcessorFactory = worldProcessorFactory;
         _argumentParser = argumentParser;

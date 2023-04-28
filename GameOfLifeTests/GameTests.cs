@@ -2,7 +2,6 @@ using GameOfLife;
 using GameOfLife.Interfaces;
 using GameOfLife.IO;
 using Moq;
-using NSubstitute;
 
 namespace GameOfLifeTests;
 
@@ -34,7 +33,7 @@ public class GameTests
     [Fact]
     public void Initialize_ShouldPrintIntroAndStartNewGame()
     {
-        var game = new Game(new ConsoleReader(), _mockedConsoleWriter.Object, _mockWorldProcessorFactory.Object,
+        var game = new Game(_mockedConsoleWriter.Object, _mockWorldProcessorFactory.Object,
             new ArgumentParser(_mockCommandLine.Object));
         
         game.Initialize();
@@ -45,7 +44,7 @@ public class GameTests
     [Fact]
     public void Initialize_ShouldPrintOutro_WhenGameFinished()
     {
-        var game = new Game(new ConsoleReader(), _mockedConsoleWriter.Object, _mockWorldProcessorFactory.Object,
+        var game = new Game(_mockedConsoleWriter.Object, _mockWorldProcessorFactory.Object,
              new ArgumentParser(_mockCommandLine.Object));
          
          game.Initialize();
@@ -65,7 +64,7 @@ public class GameTests
             .Returns(1).Returns(1).Returns(1).Returns(1).Returns(0)
             .Returns(0).Returns(1).Returns(0).Returns(1).Returns(1)
             .Returns(1).Returns(0).Returns(1).Returns(1).Returns(1);
-        var game = new Game(new ConsoleReader(), _mockedConsoleWriter.Object, _mockWorldProcessorFactory.Object,
+        var game = new Game( _mockedConsoleWriter.Object, _mockWorldProcessorFactory.Object,
             new ArgumentParser(_mockCommandLine.Object));
         
         _twoDimensionalWorld.RandomizeWorld();

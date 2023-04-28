@@ -24,7 +24,7 @@ public class CellTests
     public void GetCellStateAsString_ShouldReturnCorrectString_WhenCellDead()
     {
         var expected = "Dead";
-
+    
         var actual = _deadCell.GetCellStateAsString();
         
         Assert.Equal(expected, actual);
@@ -34,7 +34,7 @@ public class CellTests
     public void GetCellStateAsString_ShouldReturnCorrectString_WhenCellAlive()
     {        
         var expected = "Alive";
-
+    
         var actual = _aliveCell.GetCellStateAsString();
         
         Assert.Equal(expected, actual);
@@ -44,7 +44,7 @@ public class CellTests
     public void SetCellState_ShouldUpdateCellStateToDead_WhenDeadStateIsPassed()
     {
         var expected = "Dead";
-
+    
         _aliveCell.SetCellState(CellState.Dead);
         var actual = _aliveCell.GetCellStateAsString();
         
@@ -55,7 +55,7 @@ public class CellTests
     public void SetCellState_ShouldUpdateCellStateToAlive_WhenAliveStateIsPassed()
     {
         var expected = "Alive";
-
+    
         _deadCell.SetCellState(CellState.Alive);
         var actual = _deadCell.GetCellStateAsString();
         
