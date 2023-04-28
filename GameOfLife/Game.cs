@@ -5,7 +5,7 @@ namespace GameOfLife;
 
 public class Game
 {
-    private readonly IReader _reader;
+    private readonly IReader _reader; // get rid off
     private readonly IWriter _writer;
     private readonly IWorldProcessorFactory _worldProcessorFactory;
     private IWorldProcessor _worldProcessor;
@@ -31,7 +31,7 @@ public class Game
         
         while (true)
         {
-            Thread.Sleep(500);
+            Thread.Sleep(Constants.Constants.defaultMillisecondsTimeout); // magic
             _worldProcessor.Tick();
             if (_worldProcessor.IsWorldStable())
             {

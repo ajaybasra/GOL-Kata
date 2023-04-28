@@ -33,15 +33,15 @@ public class TwoDimensionalWorldProcessor : IWorldProcessor
                 var currentCell = _oldGeneration[row, col];
                 var numberOfAliveNeighbours = _neighbourProcessor.GetNumberOfAliveNeighbours(row, col, _rows, _cols, _oldGeneration);
    
-                if (currentCell.isCellAlive() && numberOfAliveNeighbours < Constants.Constants.TwoDimensionalWorldLowerThreshold)
+                if (currentCell.IsCellAlive() && numberOfAliveNeighbours < Constants.Constants.TwoDimensionalWorldLowerThreshold)
                 {
                     _newGeneration[row,col] = new Cell(CellState.Dead);
                 }
-                else if (currentCell.isCellAlive() && numberOfAliveNeighbours > Constants.Constants.TwoDimensionalWorldUpperThreshold)
+                else if (currentCell.IsCellAlive() && numberOfAliveNeighbours > Constants.Constants.TwoDimensionalWorldUpperThreshold)
                 {
                     _newGeneration[row, col] = new Cell(CellState.Dead);
                 }
-                else if (!currentCell.isCellAlive() && numberOfAliveNeighbours == Constants.Constants.TwoDimensionalWorldUpperThreshold)
+                else if (!currentCell.IsCellAlive() && numberOfAliveNeighbours == Constants.Constants.TwoDimensionalWorldUpperThreshold)
                 {
                     _newGeneration[row,col] = new Cell(CellState.Alive);
                 }

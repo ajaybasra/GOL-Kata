@@ -14,7 +14,7 @@ public class TwoDimensionalWorldNeighbourProcessor : INeighbourProcessor
                 if (i == 0 && j == 0) continue;
                 var neighbourRow = Mod((currentCellRow + i), rows);
                 var neighbourCol = Mod((currentCellCol + j), cols);
-                aliveNeighbours += oldGeneration[neighbourRow, neighbourCol].isCellAlive() ? 1 : 0;
+                aliveNeighbours += oldGeneration[neighbourRow, neighbourCol].IsCellAlive() ? 1 : 0;
             }
         }
         return aliveNeighbours;

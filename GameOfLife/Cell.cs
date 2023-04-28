@@ -10,10 +10,7 @@ public class Cell
     {
         _cellState = cellState;
     }
-
-    public static object Alive { get; set; }
-
-    public string GetCellStateAsString()
+    public string GetCellStateAsString() // delete
     {
         return _cellState.ToString();
     }
@@ -32,7 +29,7 @@ public class Cell
         return _cellState is CellState.Dead ? Constants.Constants.Dead : Constants.Constants.Alive;
     }
 
-    public bool isCellAlive()
+    public bool IsCellAlive()
     {
         return _cellState is CellState.Alive;
     }

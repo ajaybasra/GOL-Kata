@@ -46,7 +46,7 @@ public class ThreeDimensionalWorldTests
             {
                 for (var k = 0; k < _cols; k++)
                 {
-                    Assert.False(arrayOfCells[i,j,k].isCellAlive());
+                    Assert.False(arrayOfCells[i,j,k].IsCellAlive());
                 }
             }
         }
@@ -74,7 +74,7 @@ public class ThreeDimensionalWorldTests
             {
                 for (var k = 0; k < 5; k++) // five cols
                 {
-                    actualBooleans.Add(arrayOfCells[i,j,k].isCellAlive());
+                    actualBooleans.Add(arrayOfCells[i,j,k].IsCellAlive());
                 }
             }
         }

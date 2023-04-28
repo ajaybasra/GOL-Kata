@@ -85,13 +85,13 @@ public class CellTests
     [Fact]
     public void IsCellAlive_ReturnsTrue_WhenGivenAliveCell()
     {
-        Assert.True(_aliveCell.isCellAlive());
+        Assert.True(_aliveCell.IsCellAlive());
     }
     
     [Fact]
     public void IsCellAlive_ReturnsFalse_WhenGivenAliveCell()
     {
-        Assert.False(_deadCell.isCellAlive());
+        Assert.False(_deadCell.IsCellAlive());
     }
 
 

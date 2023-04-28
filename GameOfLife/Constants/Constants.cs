@@ -8,4 +8,5 @@ public static class Constants
     public const int TwoDimensionalWorldUpperThreshold = 3;
     public const int ThreeDimensionalWorldLowerThreshold = 13;
     public const int ThreeDimensionalWorldUpperThreshold = 20;
+    public const int defaultMillisecondsTimeout = 500;
 }

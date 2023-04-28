@@ -17,7 +17,7 @@ public class TwoDimensionalWorldWithoutWraparoundNeighbourProcessor : INeighbour
                 
                 var neighbourRow = currentCellRow + i;
                 var neighbourCol = currentCellCol + j;
-                aliveNeighbours += oldGeneration[neighbourRow, neighbourCol].isCellAlive() ? 1 : 0;
+                aliveNeighbours += oldGeneration[neighbourRow, neighbourCol].IsCellAlive() ? 1 : 0;
             }
         }
         return aliveNeighbours;
