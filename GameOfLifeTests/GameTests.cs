@@ -60,31 +60,11 @@ public class GameTests
         const string secondExpectedGameDisplay = "....X\n....X\n.....\n.....\n.....\n";
         const string thirdExpectedGameDisplay = ".....\n.....\n.....\n.....\n.....\n";
         _mockRNG.SetupSequence(x => x.GetRandomNumber()) 
-            .Returns(0) 
-            .Returns(1)
-            .Returns(0)
-            .Returns(0)
-            .Returns(1)
-            .Returns(0)
-            .Returns(1)
-            .Returns(1)
-            .Returns(0)
-            .Returns(0)
-            .Returns(1)
-            .Returns(1)
-            .Returns(1)
-            .Returns(1)
-            .Returns(0)
-            .Returns(0)
-            .Returns(1)
-            .Returns(0)
-            .Returns(1)
-            .Returns(1)
-            .Returns(1)
-            .Returns(0)
-            .Returns(1)
-            .Returns(1)
-            .Returns(1);
+            .Returns(0).Returns(1).Returns(0).Returns(0).Returns(1)
+            .Returns(0).Returns(1).Returns(1).Returns(0).Returns(0)
+            .Returns(1).Returns(1).Returns(1).Returns(1).Returns(0)
+            .Returns(0).Returns(1).Returns(0).Returns(1).Returns(1)
+            .Returns(1).Returns(0).Returns(1).Returns(1).Returns(1);
         var game = new Game(new ConsoleReader(), _mockedConsoleWriter.Object, _mockWorldProcessorFactory.Object,
             new ArgumentParser(_mockCommandLine.Object));
         
